@@ -21,6 +21,5 @@ int main()
 		cout << G->Neighbors(3).ElementAtIndex(i) << endl;
 	}
 
-
 	return 0;
 }

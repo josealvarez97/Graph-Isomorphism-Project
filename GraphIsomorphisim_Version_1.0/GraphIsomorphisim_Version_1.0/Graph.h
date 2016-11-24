@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+#include <array>
 #include "SinglyLinkedList.h"
 
 class CGraph
@@ -7,7 +8,7 @@ class CGraph
 
 private:
 	CSinglyLinkedList* vertexArray;
-	int vertexCardinality;
+	int vertQuantity;
 public:
 	CGraph(int vertexCardinality);
 	~CGraph();
@@ -31,11 +32,24 @@ public:
 
 
 	// Gets 
-	int VertexCardinality() { return vertexCardinality; }
+	int VertexQuantity() { return vertQuantity; }
 
 	//DoubleLinkedList variable[4];
 
 	//int n = 0;
 	//int* arrayDinamico = (int*)malloc(n * sizeof(int));
+
+
+	static bool Isomorphism(CGraph G1, CGraph G2);
+
+	static bool CompareVerticesQuantity(CGraph* G1, CGraph* G2);
+	static int* GetVertexDegreeTable(CGraph* G);
+	static int GetSumOfVerticesDegrees(CGraph* G);
+	static int* GetVerticesQuantityPerDegreeTableClassification(CGraph* G);
+
+
+	
+
+
 };
 
