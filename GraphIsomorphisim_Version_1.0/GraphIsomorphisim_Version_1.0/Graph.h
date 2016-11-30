@@ -7,9 +7,12 @@ class CGraph
 {
 
 private:
-	CVertexAdjacencyList* vertexArray;
+
 	int vertQuantity;
 public:
+
+	CVertexAdjacencyList** vertexArray;
+
 	CGraph(int vertexCardinality);
 	~CGraph();
 
@@ -51,7 +54,7 @@ public:
 	static bool JJO(CVertexAdjacencyList* vertexArray_A[], CVertexAdjacencyList* vertexArray_B[], CVertexAdjacencyList* A /*vertex A*/, CVertexAdjacencyList* B /*vertex B*/);
 
 
-	static bool JJO(CVertexAdjacencyList* vertexArray_G1[], CVertexAdjacencyList* vertexArray_G2[], CGraph* G1, CGraph* G2);
+	static bool JJO(/*CVertexAdjacencyList* vertexArray_G1[], CVertexAdjacencyList* vertexArray_G2[], */CGraph * G1, CGraph* G2);
 
 
 	static int Available(CVertexAdjacencyList* A, int table);
@@ -59,6 +62,7 @@ public:
 	static void UncoverInTable(int VertexA, int VertexB);
 	static void CrossOutInTable(int vertexA, int vertexB);
 
+	//static int SerachIndexInGraphArray(int vertexOfInterest);
 
 };
 

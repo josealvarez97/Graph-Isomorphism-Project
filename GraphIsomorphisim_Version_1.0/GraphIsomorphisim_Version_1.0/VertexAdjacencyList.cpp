@@ -20,7 +20,7 @@ CVertexAdjacencyList::~CVertexAdjacencyList()
 
 int CVertexAdjacencyList::Value()
 {
-	return 0;
+	return this->value;
 }
 
 bool CVertexAdjacencyList::Add(int value)

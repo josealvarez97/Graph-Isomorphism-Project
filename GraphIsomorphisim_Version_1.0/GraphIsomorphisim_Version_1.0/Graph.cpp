@@ -7,10 +7,13 @@ static int* IsomorphismTable;
 
 CGraph::CGraph(int vertexCardinality)
 {
-	this->vertexArray = new CVertexAdjacencyList[vertexCardinality];
+	vertexArray = new CVertexAdjacencyList*[vertexCardinality];
+
+
 	for (int i = 0; i < vertexCardinality; i++)
 	{
-		vertexArray->SetVertexValue(i);
+		vertexArray[i] = new CVertexAdjacencyList();
+		vertexArray[i]->SetVertexValue(i);
 	}
 
 
@@ -26,7 +29,7 @@ CGraph::~CGraph()
 bool CGraph::Adjacent(int x, int y)
 {
 
-	if (vertexArray[x].IsAnElement(y))
+	if (vertexArray[x]->IsAnElement(y))
 		return true;
 
 	return false;
@@ -34,18 +37,18 @@ bool CGraph::Adjacent(int x, int y)
 
 CVertexAdjacencyList CGraph::Neighbors(int x)
 {
-	return vertexArray[x];
+	return *vertexArray[x];
 }
 
 int CGraph::Degree(int x)
 {
-	return vertexArray[x].Size();
+	return vertexArray[x]->Size();
 }
 
 void CGraph::AddEdge(int x, int y)
 {
-	vertexArray[x].Add(y);
-	vertexArray[y].Add(x);
+	vertexArray[x]->Add(y);
+	vertexArray[y]->Add(x);
 }
 
 void CGraph::RemoveEdge(int x, int y)
@@ -148,11 +151,11 @@ int * CGraph::GetVerticesQuantityPerDegreeTableClassification(CGraph * G)
 bool CGraph::JJO(CVertexAdjacencyList* vertexArray_A[], CVertexAdjacencyList* vertexArray_B[], CVertexAdjacencyList * A, CVertexAdjacencyList * B/*, bool* G1_availabilityTable, bool* G2_availabilityTable, int* IsomorphismTable*/)
 {
 	if (Available(A, 1) == Available(B, 2)
-		&& Available(A, 1) != 0)
+		&& Available(A, 1) != 0)// Checkear disponibilidad
 	{
-		CrossOutInTable(A->Value(), B->Value());
+		CrossOutInTable(A->Value(), B->Value()); // Marcar En Tabla
 
-		int A_1 = 0;
+		int A_1 = 0; // SERA QUE ESTOS CONTADORES SON GLOBALES O LOCAes?????
 		int B_1 = 0;
 
 		while (A_1 + 1 < A->Size())
@@ -161,7 +164,7 @@ bool CGraph::JJO(CVertexAdjacencyList* vertexArray_A[], CVertexAdjacencyList* ve
 			{
 				A_1++;
 			}
-			while (Assigned(B->ElementAtIndex(B_1), 2) && (A->Size()/*degree*/ == B->Size()/*degree*/))
+			while (Assigned(B->ElementAtIndex(B_1), 2) || (A->Size()/*degree*/ != B->Size()/*degree*/))
 			{
 				if (B_1 + 1 < B->Size())
 				{
@@ -171,9 +174,9 @@ bool CGraph::JJO(CVertexAdjacencyList* vertexArray_A[], CVertexAdjacencyList* ve
 					return false;
 			}
 
-			while (JJO(vertexArray_A, vertexArray_B, vertexArray_A[A_1], vertexArray_B[B_1]) == false)
+			while (JJO(vertexArray_A, vertexArray_B, vertexArray_A[A->ElementAtIndex(A_1)], vertexArray_B[B->ElementAtIndex(B_1)]) == false)
 			{
-				while (Assigned(B->ElementAtIndex(B_1), 2) && (A->Size()/*degree*/ == B->Size()/*degree*/))
+				while (Assigned(B->ElementAtIndex(B_1), 2) || (A->Size()/*degree*/ != B->Size()/*degree*/))
 				{
 					if (B_1 + 1 < B->Size())
 					{
@@ -199,7 +202,7 @@ bool CGraph::JJO(CVertexAdjacencyList* vertexArray_A[], CVertexAdjacencyList* ve
 	}
 }
 
-bool CGraph::JJO(CVertexAdjacencyList* vertexArray_G1[], CVertexAdjacencyList* vertexArray_G2[], CGraph * G1, CGraph * G2)
+bool CGraph::JJO(/*CVertexAdjacencyList* vertexArray_G1[], CVertexAdjacencyList* vertexArray_G2[],*/ CGraph* G1, CGraph * G2)
 {
 	//Esta es una trampa bien cocha
 	//CVertexAdjacencyList* vertexArray = G1->vertexArray;
@@ -207,6 +210,10 @@ bool CGraph::JJO(CVertexAdjacencyList* vertexArray_G1[], CVertexAdjacencyList* v
 	// Asumiendo solo llamaremos a JJO para grafos con igual numero n de vertices
 	G1_CrossedOutTable = new bool[G1->VertexQuantity()];
 	G2_CrossedOutTable = new bool[G2->VertexQuantity()];
+
+	bool * prueba = new bool[G1->VertexQuantity()];
+	int * prubaint = new int[G1->VertexQuantity()];
+	int * pruebaint2 = new int[4];
 
 	// set all default values in false
 	for (int i = 0; i < G1->VertexQuantity(); i++)
@@ -222,27 +229,67 @@ bool CGraph::JJO(CVertexAdjacencyList* vertexArray_G1[], CVertexAdjacencyList* v
 		IsomorphismTable[i] = -1;
 	}
 
-	JJO(vertexArray_G1, vertexArray_G2, vertexArray_G1[0], vertexArray_G2[0]);
+	//JJO(G1->vertexArray, G2->vertexArray, G1->vertexArray[1], G2->vertexArray[1]);
 
-	//G1vertexArray[0];
-	//vertexArray_G1[0];
-	//while()
-	//for (int i = 0; i < G1->VertexQuantity(); i++)
+
+	// vertexArray lo interpreta como puntero a lista y no como arreglo. Listo, arreglado
+
+	//JOO COPIA
+	//if (Available(A, 1) == Available(B, 2)
+	//	&& Available(A, 1) != 0)
 	//{
-	//	for (int j = 0; i < G2->VertexQuantity(); j++)
-	//	{
-	//		while (JJO(vertexArray, vertexArray[i], vertexArray[j]));
+		//CrossOutInTable(A->Value(), B->Value());
 
-	//	}
-	//}
+	int G1_i = 0;
+	int G2_i = 0;
 
-	//JJO(vertexArray)
+	while (G1_i + 1 < G1->VertexQuantity())
+	{
+		while (Assigned(G1->vertexArray[G1_i]->Value(), 1) && G1_i + 1 < G1->VertexQuantity())
+		{
+			G1_i++;
+		}
+		while (Assigned(G2->vertexArray[G2_i]->Value(), 2) || (G1->Neighbors(G1_i).Size()/*degree*/ != G2->Neighbors(G2_i).Size()/*degree*/))
+		{
+			if (G2_i + 1 < G2->VertexQuantity())
+			{
+				G2_i++;
+			}
+			else
+				return false;
+		}
 
-	/*JJO(vertexArray, vertexArray[1], vertexArray[1]);*/
-
-	// Llamar a JJO especifico
-	return false;
+		while (JJO(G1->vertexArray, G2->vertexArray, G1->vertexArray[G1_i], G2->vertexArray[G2_i]) == false)
+		{
+			while (Assigned(G2->vertexArray[G2_i]->Value(), 2) || (G1->Neighbors(G1_i).Size()/*degree*/ != G2->Neighbors(G2_i).Size()/*degree*/))
+			{
+				if (G2_i + 1 < G2->VertexQuantity())
+				{
+					G2_i++;
+				}
+				else
+					return false;
+			}
+		}
+		G1_i++;
+	}
+	return true;
 }
+
+//else if (Available(A, 1) == Available(B, 2) && Available(A, 1) == 0)
+//{
+//	return true;
+//}
+//else
+//{
+//	UncoverInTable(A->Value(), B->Value());
+//	return false;
+// FIN JOO COPIA
+
+
+//return false;
+
+
 
 // Returns how many vertices are not "red"
 int CGraph::Available(CVertexAdjacencyList * A, int table)
@@ -268,6 +315,7 @@ bool CGraph::Assigned(int vertex, int table)
 			return true;
 	default:
 		//return false;
+		break;
 	}
 	return false;
 
