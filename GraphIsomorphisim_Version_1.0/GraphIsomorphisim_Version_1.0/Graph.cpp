@@ -158,7 +158,7 @@ bool CGraph::JJO(CVertexAdjacencyList* vertexArray_A[], CVertexAdjacencyList* ve
 		int A_1 = 0; // SERA QUE ESTOS CONTADORES SON GLOBALES O LOCAes?????
 		int B_1 = 0;
 
-		while (A_1 + 1 < A->Size())
+		while (A_1 + 1 < A->Size() /*&& Assigned(A_1 + 1, 1)*/)
 		{
 			while (Assigned(A->ElementAtIndex(A_1), 1) && A_1 + 1 < A->Size())
 			{
@@ -176,6 +176,17 @@ bool CGraph::JJO(CVertexAdjacencyList* vertexArray_A[], CVertexAdjacencyList* ve
 
 			while (JJO(vertexArray_A, vertexArray_B, vertexArray_A[A->ElementAtIndex(A_1)], vertexArray_B[B->ElementAtIndex(B_1)]) == false)
 			{
+				// Queremos que sume
+				if (B_1 + 1 < B->Size())
+				{
+					B_1++;
+				}
+				else
+				{
+					UncoverInTable(A->Value(), B->Value());
+					return false;
+				}
+				// Pero nos aseguramos que sume lo necesario
 				while (Assigned(B->ElementAtIndex(B_1), 2) || (A->Size()/*degree*/ != B->Size()/*degree*/))
 				{
 					if (B_1 + 1 < B->Size())
@@ -183,21 +194,33 @@ bool CGraph::JJO(CVertexAdjacencyList* vertexArray_A[], CVertexAdjacencyList* ve
 						B_1++;
 					}
 					else
+					{
+						UncoverInTable(A->Value(), B->Value());
 						return false;
+					}
 				}
 			}
-			A_1++;
+			while (Assigned(A->ElementAtIndex(A_1 + 1), 1) == false) // if its not assigned. // esta validacion va en el while
+				A_1++;
 		}
 		return true;
 	}
 
 	else if (Available(A, 1) == Available(B, 2) && Available(A, 1) == 0)
 	{
+		CrossOutInTable(A->Value(), B->Value()); // Marcar En Tabla
+
+		std::cout << "G1" << " -> " << "G2" << std::endl;
+
+		for (int i = 0; i < 6; i++)
+		{
+			std::cout << i << " -> " << IsomorphismTable[i] << std::endl;
+		}
 		return true;
 	}
 	else
 	{
-		UncoverInTable(A->Value(), B->Value());
+		//UncoverInTable(A->Value(), B->Value());
 		return false;
 	}
 }
@@ -310,9 +333,11 @@ bool CGraph::Assigned(int vertex, int table)
 	case 1:
 		if (G1_CrossedOutTable[vertex]) // if true means its crossed out or assigned. Assigned means red
 			return true;
+		break;
 	case 2:
 		if (G2_CrossedOutTable[vertex])
 			return true;
+		break;
 	default:
 		//return false;
 		break;
