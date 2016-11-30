@@ -111,12 +111,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Graph.h" />
-    <ClInclude Include="SinglyLinkedList.h" />
+    <ClInclude Include="VertexAdjacencyList.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Graph.cpp" />
     <ClCompile Include="Main.cpp" />
-    <ClCompile Include="SinglyLinkedList.cpp" />
+    <ClCompile Include="VertexAdjacencyList.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -7,11 +7,11 @@ int main()
 	CGraph* G = new CGraph(5);
 	cout << "hola" << endl;
 
-	G->Add_edge(0, 1);
-	G->Add_edge(0, 3); // devolvio -1....
-	G->Add_edge(1, 4);
-	G->Add_edge(4, 3);
-	G->Add_edge(2, 3);
+	G->AddEdge(0, 1);
+	G->AddEdge(0, 3); // devolvio -1....
+	G->AddEdge(1, 4);
+	G->AddEdge(4, 3);
+	G->AddEdge(2, 3);
 
 
 	// Print neighbors of 3

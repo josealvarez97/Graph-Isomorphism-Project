@@ -1,19 +1,29 @@
-#include "SinglyLinkedList.h"
+#include "VertexAdjacencyList.h"
 
 
 
-CSinglyLinkedList::CSinglyLinkedList()
+void CVertexAdjacencyList::SetVertexValue(int value)
+{
+	this->value = value;
+}
+
+CVertexAdjacencyList::CVertexAdjacencyList()
 {
 	this->head = nullptr;
 	this->size = 0;
 }
 
 
-CSinglyLinkedList::~CSinglyLinkedList()
+CVertexAdjacencyList::~CVertexAdjacencyList()
 {
 }
 
-bool CSinglyLinkedList::Add(int value)
+int CVertexAdjacencyList::Value()
+{
+	return 0;
+}
+
+bool CVertexAdjacencyList::Add(int value)
 {
 	Node* newNode = new Node();
 	newNode->value = value;
@@ -35,7 +45,9 @@ bool CSinglyLinkedList::Add(int value)
 	return true;
 }
 
-bool CSinglyLinkedList::IsAnElement(int value)
+
+
+bool CVertexAdjacencyList::IsAnElement(int value)
 {
 	Node* temp = head;
 	while (temp->next != nullptr)
@@ -46,7 +58,7 @@ bool CSinglyLinkedList::IsAnElement(int value)
 	return false;
 }
 
-int CSinglyLinkedList::ElementAtIndex(int index)
+int CVertexAdjacencyList::ElementAtIndex(int index)
 {
 	Node* temp = head;
 

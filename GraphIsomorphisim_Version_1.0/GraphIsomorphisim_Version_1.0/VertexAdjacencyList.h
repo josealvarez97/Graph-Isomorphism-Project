@@ -7,19 +7,23 @@ struct Node
 	Node* next;
 };
 
-class CSinglyLinkedList
+class CVertexAdjacencyList
 {
 private:
 	int size;
-
+	int value;
 public:
-	CSinglyLinkedList();
-	~CSinglyLinkedList();
+	void SetVertexValue(int value);
+
+	CVertexAdjacencyList();
+	~CVertexAdjacencyList();
 
 	Node* head;
+	int Value();
 	int Size() {return size;}
 
 	bool Add(int value);
+
 	bool IsAnElement(int value);
 	int ElementAtIndex(int index);
 
