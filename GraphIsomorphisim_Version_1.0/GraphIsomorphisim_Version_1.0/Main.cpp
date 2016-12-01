@@ -1,28 +1,28 @@
-#include <iostream>
+﻿#include <iostream>
 #include "Graph.h"
 #include "ReadInput.h"
 using namespace std;
 
 int main()
 {
-	CGraph* G1 = new CGraph(4);
-	CGraph* G2 = new CGraph(4);
+	//CGraph* G1 = new CGraph(4);
+	//CGraph* G2 = new CGraph(4);
 
 
 	// PRUEBA GRAFO PENTAGONO Y GRAFO ESTRELLA
 
 	string grafo1 = "";
 	string grafo2 = "";
-
-	/*cout << "Ingrese direccion de la entrada para el primero grafo" << endl;
+	
+	cout << "  convert(Ingrese direccion de la entrada para el primer grafo).ToEnglish()  " << endl;
 	getline(cin, grafo1);
 	CGraph* G1 = new CGraph(CReadInput::GetVertexQuantity(grafo1));
-	cout << "Ingrese direccion de la entrada para el segundo grafo" << endl;
+	cout << "  convert(Ingrese direccion de la entrada para el segundo grafo).ToEnglish() " << endl;
 	getline(cin, grafo2);
 	CGraph* G2 = new CGraph(CReadInput::GetVertexQuantity(grafo2));
 
 	CReadInput::ReadInput(grafo1, G1);
-	CReadInput::ReadInput(grafo2, G2);*/
+	CReadInput::ReadInput(grafo2, G2);
 
 
 
@@ -43,7 +43,7 @@ int main()
 	//G2->AddEdge(3, 2);
 
 	// OTRO INTENTO Si salio y no todos tienen el mismo grado
-	G1->AddEdge(0, 1);
+	/*G1->AddEdge(0, 1);
 	G1->AddEdge(0, 2);
 	G1->AddEdge(0, 3);
 	G1->AddEdge(1, 3);
@@ -53,7 +53,7 @@ int main()
 	G2->AddEdge(0, 2);
 	G2->AddEdge(1, 2);
 	G2->AddEdge(1, 3);
-	G2->AddEdge(2, 3);
+	G2->AddEdge(2, 3);*/
 
 	// OTRO INTENTO (FALLIDO NO CUADRO UNO)
 
@@ -176,9 +176,10 @@ int main()
 
 	//bool hola = CGraph::JJO(G1, G2);
 
-	bool hola1 = CGraph::JJO(G1, G2);
 
-	cout << "hola" << endl;
+bool hola1 = CGraph::JJO(G1, G2);
+
+	//cout << "hola" << endl;
 
 	//G1->AddEdge(0, 1);
 	//G1->AddEdge(0, 3); // devolvio -1....
@@ -196,5 +197,6 @@ int main()
 
 
 	//CGraph::JJO(G, G);
+	cin.get();
 	return 0;
 }
