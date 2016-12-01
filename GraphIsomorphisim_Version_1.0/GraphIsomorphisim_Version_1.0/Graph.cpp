@@ -350,6 +350,15 @@ bool CGraph::JJO(CVertexAdjacencyList* vertexArray_A[], CVertexAdjacencyList* ve
 			//	A_1++;
 			//}
 		}
+
+		//// Anadicion creo que debe ser solo en caso trivial
+		//if (CheckIsomorphismTableAdjacentVertices(A, B))
+		//	return true;
+		//else
+		//{
+		//	UncoverInTable(A->Value(), B->Value());
+		//	return false;
+		//}
 		return true;
 	}
 
@@ -363,7 +372,13 @@ bool CGraph::JJO(CVertexAdjacencyList* vertexArray_A[], CVertexAdjacencyList* ve
 		{
 			std::cout << i << " -> " << IsomorphismTable[i] << std::endl;
 		}
-		return true;
+
+
+		//Anadicion
+		if (CheckIsomorphismTableAdjacentVertices(A, B))
+			return true;
+		else
+			return false;
 	}
 	else
 	{
@@ -435,7 +450,57 @@ bool CGraph::JJO(/*CVertexAdjacencyList* vertexArray_G1[], CVertexAdjacencyList*
 
 	}
 
-	CheckIsomorphismTable(G1, G2);
+
+
+	//while (!CheckIsomorphismTable(G1, G2))
+	//{
+	//	if (G2_i + 1 < G2->VertexQuantity())
+	//	{
+	//		G2_i++;
+	//		// set all default values in false
+	//		for (int i = 0; i < G1->VertexQuantity(); i++)
+	//		{
+	//			G1_CrossedOutTable[i] = false;
+	//			G2_CrossedOutTable[i] = false;
+	//			IsomorphismTable[i] = -1;
+
+	//		}
+	//	}
+	//	else
+	//	{
+	//		//cout << "FUNCION NO ENCONTRADA, GRAFOS NO SON ISOMORFOS" << endl;
+	//		return false;
+	//	}
+
+	//	JJO(G1->vertexArray, G2->vertexArray, G1->vertexArray[G1_i], G2->vertexArray[G2_i]);
+	//	CheckIsomorphismTable(G1, G2);
+	//}
+	//while (CheckIsomorphismTable(G1, G2)) // True means its bad
+	//{
+	//	while (JJO(G1->vertexArray, G2->vertexArray, G1->vertexArray[G1_i], G2->vertexArray[G2_i]) == false)
+	//	{
+	//		if (G2_i + 1 < G2->VertexQuantity())
+	//		{
+	//			G2_i++;
+	//			// set all default values in false
+	//			for (int i = 0; i < G1->VertexQuantity(); i++)
+	//			{
+	//				G1_CrossedOutTable[i] = false;
+	//				G2_CrossedOutTable[i] = false;
+	//				IsomorphismTable[i] = -1;
+
+	//			}
+	//		}
+	//		else
+	//		{
+	//			//cout << "FUNCION NO ENCONTRADA, GRAFOS NO SON ISOMORFOS" << endl;
+	//			return false;
+	//		}
+
+	//	}
+	//}
+
+
 
 	std::cout << "FUNCION ISOMORFISMO" << std::endl;
 	std::cout << "G1" << " -> " << "G2" << std::endl;
@@ -556,7 +621,7 @@ void CGraph::CrossOutInTable(int vertexA, int vertexB)
 	IsomorphismTable[vertexA] = vertexB;
 }
 
-void CGraph::CheckIsomorphismTable(CGraph* G1, CGraph* G2)
+bool CGraph::CheckIsomorphismTable(CGraph* G1, CGraph* G2)
 {
 	int i = 0;
 	CVertexAdjacencyList * G1_vertex = new CVertexAdjacencyList();
@@ -597,7 +662,9 @@ void CGraph::CheckIsomorphismTable(CGraph* G1, CGraph* G2)
 	{
 		delete G1_vertex;
 		delete G2_vertex;
-		return;
+
+		delete miniCorrectIsomorphismTable;
+		return true;
 	}
 
 	// FIND G1_NoBijectionVertex INDEX
@@ -639,7 +706,22 @@ void CGraph::CheckIsomorphismTable(CGraph* G1, CGraph* G2)
 
 
 	// MAKE THE SWAP!!!!!!!!!!
-	swap(IsomorphismTable[G1_Index_NoBijectionVertex], IsomorphismTable[G2_Index_NoBijectionVertex]);
+	if (executeSwap == true)
+	{
+		//swap(IsomorphismTable[G1_Index_NoBijectionVertex], IsomorphismTable[G2_Index_NoBijectionVertex]);
+		return false;
+	}
+	else
+	{
+		delete G1_vertex;
+		delete G2_vertex;
+
+		delete miniCorrectIsomorphismTable;
+		return true;
+	}
+
+
+
 	delete G1_vertex;
 	delete G2_vertex;
 	//std::cout << "FUNCION ISOMORFISMO CON SWAP" << std::endl;
@@ -649,5 +731,104 @@ void CGraph::CheckIsomorphismTable(CGraph* G1, CGraph* G2)
 	//{
 	//	std::cout << i << " -> " << IsomorphismTable[i] << std::endl;
 	//}
+	delete miniCorrectIsomorphismTable;
+}
+
+bool CGraph::CheckIsomorphismTableAdjacentVertices(CVertexAdjacencyList * A, CVertexAdjacencyList * B)
+{
+
+
+
+	// VERTICES TO COMPARE
+	// Compare vertices acording to isomorphism table.
+
+	// DATA TO OBTAIN
+	//int A_NoBijectionVertex = 0;
+	//int B_NoBijectionVertex = 0;
+	//int A_Index_NoBijectionVertex = 0;
+	//int B_Index_NoBijectionVertex = 0;
+	bool EVERYTHINGOK = true;
+
+
+	// FIND G1_NO_BIJECTION VERTEX
+
+	for (int j = 0; j < A->Size(); j++)
+	{
+		//CHECK IF THE VERTEX THE FUNCTION RETURNS IS IN G2_VERTEX ADJACENTS
+		if (B->IsAnElement(IsomorphismTable[A->ElementAtIndex(j)]) == false) // Adjacent of G1_vertex has a corresponding adjacent to G2_vertex?
+		{
+			//A_NoBijectionVertex = A->ElementAtIndex(j); // It's the element that doesn't have a correct bijection.
+			EVERYTHINGOK = false;
+		}
+	}
+
+
+	return EVERYTHINGOK;
+
+	//// FIND G1_NoBijectionVertex INDEX
+	//G1_Index_NoBijectionVertex = G1_NoBijectionVertex;  // ITS JUST THE SAME THING, SINCE THE DOMAIN OF FUNCTION IS THE POSITION OF THE ARRAY
+
+
+
+	//													// FIND G2_NO_BIJECTION_VERTEX
+	//bool iTsInArray = false;
+
+	//for (int a = 0; a < G2_vertex->Size(); a++) // Recorrer List (G2_vertex adjacents)
+	//{
+	//	iTsInArray = false;
+
+	//	for (int b = 0; b < G2->VertexQuantity(); b++) // Recorrer Array (miniIso Table)
+	//	{
+	//		if (G2_vertex->ElementAtIndex(a) == miniCorrectIsomorphismTable[b])
+	//			iTsInArray = true;
+	//	}
+
+	//	if (iTsInArray == false)
+	//	{
+	//		G2_NoBijectionVertex = G2_vertex->ElementAtIndex(a);
+	//		break;
+	//	}
+	//}
+
+
+	//// FIND G2_NoBijectionVertex_INDEX
+
+	//for (int c = 0; c < G1->VertexQuantity(); c++) // Recorrer array (Iso table)
+	//{
+	//	if (G2_NoBijectionVertex == IsomorphismTable[c])
+	//	{
+	//		G2_Index_NoBijectionVertex = c;
+	//	}
+	//}
+
+
+
+	//// MAKE THE SWAP!!!!!!!!!!
+	//if (executeSwap == true)
+	//{
+	//	//swap(IsomorphismTable[G1_Index_NoBijectionVertex], IsomorphismTable[G2_Index_NoBijectionVertex]);
+	//	return false;
+	//}
+	//else
+	//{
+	//	delete G1_vertex;
+	//	delete G2_vertex;
+
+	//	delete miniCorrectIsomorphismTable;
+	//	return true;
+	//}
+
+
+
+	//delete G1_vertex;
+	//delete G2_vertex;
+	////std::cout << "FUNCION ISOMORFISMO CON SWAP" << std::endl;
+	////std::cout << "G1" << " -> " << "G2" << std::endl;
+
+	////for (int i = 0; i < 8; i++)
+	////{
+	////	std::cout << i << " -> " << IsomorphismTable[i] << std::endl;
+	////}
+	//delete miniCorrectIsomorphismTable;
 }
 

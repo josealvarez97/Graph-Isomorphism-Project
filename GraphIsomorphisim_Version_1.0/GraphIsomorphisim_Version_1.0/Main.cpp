@@ -12,7 +12,7 @@ int main()
 	string grafo1 = "";
 	string grafo2 = "";
 	string decision = "";
-	string adress = "C:/Users/jjaa0/Documents/GitHub/Graph-Isomorphism-Project/GraphIsomorphisim_Version_1.0/GraphIsomorphisim_Version_1.0/Batería de pruebas/";
+	string adress = "C:/Users/Oscar/Desktop/Proyecto Discreta/Graph-Isomorphism-Project/GraphIsomorphisim_Version_1.0/GraphIsomorphisim_Version_1.0/Batería de pruebas/";
 
 	while (true)
 	{
