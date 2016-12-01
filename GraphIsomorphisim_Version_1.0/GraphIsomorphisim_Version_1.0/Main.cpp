@@ -1,16 +1,31 @@
 #include <iostream>
 #include "Graph.h"
+#include "ReadInput.h"
 using namespace std;
 
 int main()
 {
-	//CGraph* G1 = new CGraph(6);
-	//CGraph* G2 = new CGraph(6);
+	CGraph* G1 = new CGraph(4);
+	CGraph* G2 = new CGraph(4);
 
 
 	// PRUEBA GRAFO PENTAGONO Y GRAFO ESTRELLA
-	CGraph* G1 = new CGraph(6);
-	CGraph* G2 = new CGraph(6);
+
+	string grafo1 = "";
+	string grafo2 = "";
+
+	/*cout << "Ingrese direccion de la entrada para el primero grafo" << endl;
+	getline(cin, grafo1);
+	CGraph* G1 = new CGraph(CReadInput::GetVertexQuantity(grafo1));
+	cout << "Ingrese direccion de la entrada para el segundo grafo" << endl;
+	getline(cin, grafo2);
+	CGraph* G2 = new CGraph(CReadInput::GetVertexQuantity(grafo2));
+
+	CReadInput::ReadInput(grafo1, G1);
+	CReadInput::ReadInput(grafo2, G2);*/
+
+
+
 
 	// SI SALIERON WUUUUUUUUUUUUUUU
 	////Pentagono
@@ -28,7 +43,7 @@ int main()
 	//G2->AddEdge(3, 2);
 
 	// OTRO INTENTO Si salio y no todos tienen el mismo grado
-	/*G1->AddEdge(0, 1);
+	G1->AddEdge(0, 1);
 	G1->AddEdge(0, 2);
 	G1->AddEdge(0, 3);
 	G1->AddEdge(1, 3);
@@ -38,35 +53,35 @@ int main()
 	G2->AddEdge(0, 2);
 	G2->AddEdge(1, 2);
 	G2->AddEdge(1, 3);
-	G2->AddEdge(2, 3);*/
+	G2->AddEdge(2, 3);
 
 	// OTRO INTENTO (FALLIDO NO CUADRO UNO)
 
-	G1->AddEdge(0, 1);
-	G1->AddEdge(0, 2);
-	G1->AddEdge(0, 4);
-	G1->AddEdge(0, 5);
-	G1->AddEdge(1, 2);
-	G1->AddEdge(1, 3);
-	G1->AddEdge(1, 4);
-	G1->AddEdge(2, 3);
-	G1->AddEdge(2, 5);
-	G1->AddEdge(3, 4);
-	G1->AddEdge(3, 5);
-	G1->AddEdge(4, 5);
+	//G1->AddEdge(0, 1);
+	//G1->AddEdge(0, 2);
+	//G1->AddEdge(0, 4);
+	//G1->AddEdge(0, 5);
+	//G1->AddEdge(1, 2);
+	//G1->AddEdge(1, 3);
+	//G1->AddEdge(1, 4);
+	//G1->AddEdge(2, 3);
+	//G1->AddEdge(2, 5);
+	//G1->AddEdge(3, 4);
+	//G1->AddEdge(3, 5);
+	//G1->AddEdge(4, 5);
 
-	G2->AddEdge(0, 1);
-	G2->AddEdge(0, 2);
-	G2->AddEdge(0, 3);
-	G2->AddEdge(0, 4);
-	G2->AddEdge(1, 2);
-	G2->AddEdge(1, 3);
-	G2->AddEdge(1, 5);
-	G2->AddEdge(2, 4);
-	G2->AddEdge(2, 5);
-	G2->AddEdge(3, 4);
-	G2->AddEdge(3, 5);
-	G2->AddEdge(4, 5);
+	//G2->AddEdge(0, 1);
+	//G2->AddEdge(0, 2);
+	//G2->AddEdge(0, 3);
+	//G2->AddEdge(0, 4);
+	//G2->AddEdge(1, 2);
+	//G2->AddEdge(1, 3);
+	//G2->AddEdge(1, 5);
+	//G2->AddEdge(2, 4);
+	//G2->AddEdge(2, 5);
+	//G2->AddEdge(3, 4);
+	//G2->AddEdge(3, 5);
+	//G2->AddEdge(4, 5);
 
 
 	//OTRO INTENTO

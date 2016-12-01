@@ -21,6 +21,7 @@ CGraph::CGraph(int vertexCardinality)
 }
 
 
+
 CGraph::~CGraph()
 {
 }
@@ -313,7 +314,6 @@ bool CGraph::JJO(/*CVertexAdjacencyList* vertexArray_G1[], CVertexAdjacencyList*
 
 	if (JJO(G1->vertexArray, G2->vertexArray, G1->vertexArray[G1_i], G2->vertexArray[G2_i]))
 	{
-
 
 		CheckIsomorphismTable(G1, G2);
 		return true;
