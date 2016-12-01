@@ -14,13 +14,19 @@ CReadInput::~CReadInput()
 
 int CReadInput::FileSize(string Entrada)
 {
+	
 	file.open(Entrada);
 	string line = "";
 	int line_counter = 0;
 	while (!file.eof())
 	{
 		getline(file, line);
-		line_counter++;
+		line.erase(remove_if(line.begin(), line.end(), isspace), line.end());
+		if (line != "")
+			line_counter++;
+		else
+			break;
+			
 	}
 	file.close();
 
@@ -41,10 +47,12 @@ void CReadInput::ReadInput(string Entrada, CGraph* Graph)
 
 		(getline(file, line));
 		(getline(file, line));
-		while (line_counter > 0 && line_counter < sizeFile)
+		line.erase(remove_if(line.begin(), line.end(), isspace), line.end());
+		while (line_counter > 0 && line_counter < sizeFile && line != "")
 		{
 			Graph->AddEdge(atoi(line.substr(0, 1).c_str()), atoi(line.substr(2, 1).c_str()));
 			(getline(file, line));
+			line.erase(remove_if(line.begin(), line.end(), isspace), line.end());
 			line_counter++;
 		}
 	}
@@ -57,6 +65,7 @@ int CReadInput::GetVertexQuantity(string Entrada)
 	file.open(Entrada);
 
 	getline(file, line);
+	line.erase(remove_if(line.begin(), line.end(), isspace), line.end());
 	int vertexQuantity = atoi(line.c_str());
 	file.close();
 

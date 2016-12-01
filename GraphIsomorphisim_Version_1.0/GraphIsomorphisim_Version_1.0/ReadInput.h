@@ -16,6 +16,5 @@ public:
 	static int GetVertexQuantity(string Entrada);
 
 
-
 };
 

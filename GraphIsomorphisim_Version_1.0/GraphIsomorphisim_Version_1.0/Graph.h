@@ -43,17 +43,22 @@ public:
 	//int* arrayDinamico = (int*)malloc(n * sizeof(int));
 
 
-	static bool Isomorphism(CGraph G1, CGraph G2);
-
+	static bool Isomorphism(CGraph* G1, CGraph* G2);
 	static bool CompareVerticesQuantity(CGraph* G1, CGraph* G2); //
+	static bool CompareEdgesQuantity(CGraph* G1, CGraph* G2);
+	static bool CompareVerticesPerDegreeTables(CGraph* G1, CGraph* G2);
+	static void PrintGraphsInfo(CGraph* G1, CGraph* G2);
+	static void PrintVertexDegreeTable(CGraph* G);
+	static int GetEdgesQuantity(CGraph* G);
 	static int* GetVertexDegreeTable(CGraph* G);// for an specific vertex, gives its degree...
 	static int GetSumOfVerticesDegrees(CGraph* G); // sum of vertices degree...
 	static int* GetVerticesQuantityPerDegreeTableClassification(CGraph* G);// para un determinado grado, cuantos vertices poseen ese grado en el grafo.
 
 
+
 	static bool JJO(CVertexAdjacencyList* vertexArray_A[], CVertexAdjacencyList* vertexArray_B[], CVertexAdjacencyList* A /*vertex A*/, CVertexAdjacencyList* B /*vertex B*/);
 
-
+	
 	static bool JJO(/*CVertexAdjacencyList* vertexArray_G1[], CVertexAdjacencyList* vertexArray_G2[], */CGraph * G1, CGraph* G2);
 
 

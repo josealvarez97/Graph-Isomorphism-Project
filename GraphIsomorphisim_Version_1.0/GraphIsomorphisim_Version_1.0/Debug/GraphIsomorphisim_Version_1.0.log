@@ -1,3 +1,4 @@
 ﻿  Graph.cpp
-  GraphIsomorphisim_Version_1.0.vcxproj -> C:\Users\Oscar\Desktop\Proyecto Discreta\Graph-Isomorphism-Project\GraphIsomorphisim_Version_1.0\Debug\GraphIsomorphisim_Version_1.0.exe
-  GraphIsomorphisim_Version_1.0.vcxproj -> C:\Users\Oscar\Desktop\Proyecto Discreta\Graph-Isomorphism-Project\GraphIsomorphisim_Version_1.0\Debug\GraphIsomorphisim_Version_1.0.pdb (Partial PDB)
+c:\users\jjaa0\documents\github\graph-isomorphism-project\graphisomorphisim_version_1.0\graphisomorphisim_version_1.0\graph.cpp(132): warning C4715: 'CGraph::Isomorphism': not all control paths return a value
+  GraphIsomorphisim_Version_1.0.vcxproj -> C:\Users\jjaa0\Documents\GitHub\Graph-Isomorphism-Project\GraphIsomorphisim_Version_1.0\Debug\GraphIsomorphisim_Version_1.0.exe
+  GraphIsomorphisim_Version_1.0.vcxproj -> C:\Users\jjaa0\Documents\GitHub\Graph-Isomorphism-Project\GraphIsomorphisim_Version_1.0\Debug\GraphIsomorphisim_Version_1.0.pdb (Partial PDB)

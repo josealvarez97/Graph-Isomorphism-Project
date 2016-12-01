@@ -1,4 +1,5 @@
 #include "Graph.h"
+#include <iomanip> //for table format
 
 static bool* G1_CrossedOutTable;
 static bool* G2_CrossedOutTable;
@@ -89,15 +90,114 @@ int CGraph::LeastDistanceVertex(int * distanceValues)
 	return 0;
 }
 
-bool CGraph::Isomorphism(CGraph G1, CGraph G2)
+bool CGraph::Isomorphism(CGraph* G1, CGraph* G2)
 {
-	return false;
+	bool VertexMatch = CompareVerticesQuantity(G1, G2);
+	bool EdgesMath = CompareEdgesQuantity(G1, G2);
+	bool VertexPerDegreeTableMatch = CompareVerticesPerDegreeTables(G1, G2);
+
+	if (!VertexMatch)
+		cout << "Number of vertices doesn't match" << endl;
+
+	if (!EdgesMath)
+		cout << "Number of edges doesn't match" << endl;
+
+	if (!VertexPerDegreeTableMatch)
+		cout << "Vertex Per Degree tables don't match" << endl;
+
+	if (!VertexMatch || !EdgesMath || !VertexPerDegreeTableMatch)
+	{
+		cout << "THEREFORE, GRAPHS ARE NOT ISOMORPHIC" << endl;
+		return false;
+	}
+
+
+	if (!JJO(G1, G2))
+	{
+		cout << "ISOMORPHISM FUNCTION NOT FOUND, GRAPHS ARE NOT ISOMORPHIC" << endl;
+		return false;
+	}
+	else
+	{
+		//std::cout << "ISOMORPHISM FUNCTION" << std::endl;
+		//std::cout << "G1" << " -> " << "G2" << std::endl;
+
+		//for (int i = 0; i < G1->VertexQuantity(); i++)
+		//{
+		//	std::cout << i << " -> " << IsomorphismTable[i] << std::endl;
+		//}
+		//return true;
+	}
+
 }
 
 bool CGraph::CompareVerticesQuantity(CGraph* G1, CGraph* G2)
 {
 	return G1->VertexQuantity() == G2->VertexQuantity();
 }
+
+int CGraph::GetEdgesQuantity(CGraph* G)
+{
+	int EdgesG = 0;
+
+	EdgesG = (GetSumOfVerticesDegrees(G) / 2);
+
+	return EdgesG;
+}
+
+bool CGraph::CompareEdgesQuantity(CGraph* G1, CGraph* G2)
+{
+	return GetEdgesQuantity(G1) == GetEdgesQuantity(G2);
+}
+
+bool CGraph::CompareVerticesPerDegreeTables(CGraph * G1, CGraph * G2)
+{
+	int * G1table = GetVerticesQuantityPerDegreeTableClassification(G1);
+	int * G2table = GetVerticesQuantityPerDegreeTableClassification(G2);
+
+	for (int i = 0; i < G1->VertexQuantity(); i++)
+	{
+		if (G1table[i] != G2table[i])
+			return false;
+	}
+	return true;
+}
+
+void CGraph::PrintVertexDegreeTable(CGraph* G)
+{
+	cout << "|  | Degree | # of Vertex " << endl;
+	for (int i = 0; i < G->VertexQuantity() - 1; i++)
+	{
+		cout << "|  |   " << i << "    |    ";
+		int count = 0;
+		for (int j = 0; j < G->VertexQuantity(); j++)
+		{
+			if (G->vertexArray[j]->Size() == i)
+			{
+				count++;
+			}
+		}
+		cout << " " << count << endl;
+	}
+}
+
+void CGraph::PrintGraphsInfo(CGraph* G1, CGraph* G2)
+{
+	cout << "|--------------------------------" << endl;
+	cout << "| GRAPH A: " << endl;
+	cout << "| - Vertices Quantity: " << G1->VertexQuantity() << endl;
+	cout << "| - Edges Quantity: " << GetEdgesQuantity(G1) << endl;
+	cout << "| - Vertex per Degree: " << endl;
+	PrintVertexDegreeTable(G1);
+	cout << "|--------------------------------" << endl;
+	cout << "| GRAPH B: " << endl;
+	cout << "| - Vertices Quantity: " << G2->VertexQuantity() << endl;
+	cout << "| - Edges Quantity: " << GetEdgesQuantity(G2) << endl;
+	cout << "| - Vertex per Degree: " << endl;
+	PrintVertexDegreeTable(G2);
+	cout << "|--------------------------------" << endl;
+}
+
 
 int * CGraph::GetVertexDegreeTable(CGraph * G)
 {
@@ -151,16 +251,16 @@ int * CGraph::GetVerticesQuantityPerDegreeTableClassification(CGraph * G)
 
 bool CGraph::JJO(CVertexAdjacencyList* vertexArray_A[], CVertexAdjacencyList* vertexArray_B[], CVertexAdjacencyList * A, CVertexAdjacencyList * B/*, bool* G1_availabilityTable, bool* G2_availabilityTable, int* IsomorphismTable*/)
 {
-	std::cout << "--------------------------------------------------------------------------------" << std::endl;
-	std::cout << "Analizando vertice/lista: " << A->Value() << " & " << B->Value() << std::endl;
-	std::cout << "A: "; A->PrintList(); std::cout << endl;
-	std::cout << "B: "; B->PrintList(); std::cout << endl;
+	//std::cout << "--------------------------------------------------------------------------------" << std::endl;
+	//std::cout << "Analizando vertice/lista: " << A->Value() << " & " << B->Value() << std::endl;
+	//std::cout << "A: "; A->PrintList(); std::cout << endl;
+	//std::cout << "B: "; B->PrintList(); std::cout << endl;
 
 
 	if (Available(A, 1) == Available(B, 2)
 		&& Available(A, 1) != 0)// Checkear disponibilidad
 	{
-		std::cout << "CrossOut: " << A->Value() << " & " << B->Value() << std::endl;
+		//std::cout << "CrossOut: " << A->Value() << " & " << B->Value() << std::endl;
 		CrossOutInTable(A->Value(), B->Value()); // Marcar En Tabla
 
 		int A_1 = 0; // SERA QUE ESTOS CONTADORES SON GLOBALES O LOCAes?????
@@ -175,7 +275,7 @@ bool CGraph::JJO(CVertexAdjacencyList* vertexArray_A[], CVertexAdjacencyList* ve
 			{
 				A_1++;
 			}
-			std::cout << "A_1 se sumo hasta " << A_1 << std::endl;
+			//std::cout << "A_1 se sumo hasta " << A_1 << std::endl;
 
 			while (Assigned(B->ElementAtIndex(B_1), 2) || (A->Size()/*degree*/ != B->Size()/*degree*/))
 			{
@@ -186,29 +286,29 @@ bool CGraph::JJO(CVertexAdjacencyList* vertexArray_A[], CVertexAdjacencyList* ve
 				else
 					return false;
 			}
-			std::cout << "B_1 se sumo hasta " << B_1 << std::endl;
+			//std::cout << "B_1 se sumo hasta " << B_1 << std::endl;
 
 			while (JJO(vertexArray_A, vertexArray_B, vertexArray_A[A->ElementAtIndex(A_1)], vertexArray_B[B->ElementAtIndex(B_1)]) == false)
 			{
-				std::cout << "JJO de A: " << A->Value() << "y B: " << B->Value() << " dio false" << std::endl;
+				//std::cout << "JJO de A: " << A->Value() << "y B: " << B->Value() << " dio false" << std::endl;
 				// Queremos que sume
 				if (B_1 + 1 < B->Size())
 				{
 					B_1++;
-					std::cout << "Sumamos uno a B_1 = " << B->Value() << std::endl;
+					//std::cout << "Sumamos uno a B_1 = " << B->Value() << std::endl;
 				}
 				else
 				{
 
 					UncoverInTable(A->Value(), B->Value());
-					std::cout << "UncoverInTable = " << A->Value() << ", " << B->Value() << std::endl;
-					for (int i = 0; i < 6; i++)
-					{
+					//std::cout << "UncoverInTable = " << A->Value() << ", " << B->Value() << std::endl;
+					//for (int i = 0; i < 6; i++)
+					//{
 
-						std::cout << i << " -> " << G1_CrossedOutTable[i] << std::endl;
-						std::cout << i << " -> " << G2_CrossedOutTable[i] << std::endl;
+					//	std::cout << i << " -> " << G1_CrossedOutTable[i] << std::endl;
+					//	std::cout << i << " -> " << G2_CrossedOutTable[i] << std::endl;
 
-					}
+					//}
 
 					return false;
 				}
@@ -222,25 +322,25 @@ bool CGraph::JJO(CVertexAdjacencyList* vertexArray_A[], CVertexAdjacencyList* ve
 					else
 					{
 						UncoverInTable(A->Value(), B->Value());
-						std::cout << "UncoverInTable = " << A->Value() << ", " << B->Value() << std::endl;
-						std::cout << "G1_CrossedOutTable: " << std::endl;
-						for (int i = 0; i < 6; i++)
-						{
-							if (G1_CrossedOutTable[i])
-								std::cout << i << " -> " << "True" << std::endl;
-							else
-								std::cout << i << " -> " << "false" << std::endl;
+						//std::cout << "UncoverInTable = " << A->Value() << ", " << B->Value() << std::endl;
+						//std::cout << "G1_CrossedOutTable: " << std::endl;
+						//for (int i = 0; i < 6; i++)
+						//{
+						//	if (G1_CrossedOutTable[i])
+						//		std::cout << i << " -> " << "True" << std::endl;
+						//	else
+						//		std::cout << i << " -> " << "false" << std::endl;
 
-						}
-						std::cout << "G2_CrossedOutTable: " << std::endl;
-						for (int i = 0; i < 6; i++)
-						{
-							if (G2_CrossedOutTable[i])
-								std::cout << i << " -> " << "True" << std::endl;
-							else
-								std::cout << i << " -> " << "false" << std::endl;
+						//}
+						//std::cout << "G2_CrossedOutTable: " << std::endl;
+						//for (int i = 0; i < 6; i++)
+						//{
+						//	if (G2_CrossedOutTable[i])
+						//		std::cout << i << " -> " << "True" << std::endl;
+						//	else
+						//		std::cout << i << " -> " << "false" << std::endl;
 
-						}
+						//}
 						return false;
 					}
 				}
@@ -277,6 +377,8 @@ bool CGraph::JJO(/*CVertexAdjacencyList* vertexArray_G1[], CVertexAdjacencyList*
 	//Esta es una trampa bien cocha
 	//CVertexAdjacencyList* vertexArray = G1->vertexArray;
 
+	//PrintGraphsInfo(G1, G2);
+
 	// Asumiendo solo llamaremos a JJO para grafos con igual numero n de vertices
 	G1_CrossedOutTable = new bool[G1->VertexQuantity()];
 	G2_CrossedOutTable = new bool[G2->VertexQuantity()];
@@ -311,18 +413,39 @@ bool CGraph::JJO(/*CVertexAdjacencyList* vertexArray_G1[], CVertexAdjacencyList*
 	int G1_i = 0;
 	int G2_i = 0;
 
-
-	if (JJO(G1->vertexArray, G2->vertexArray, G1->vertexArray[G1_i], G2->vertexArray[G2_i]))
+	while (JJO(G1->vertexArray, G2->vertexArray, G1->vertexArray[G1_i], G2->vertexArray[G2_i]) == false)
 	{
+		if (G2_i + 1 < G2->VertexQuantity())
+		{
+			G2_i++;
+			// set all default values in false
+			for (int i = 0; i < G1->VertexQuantity(); i++)
+			{
+				G1_CrossedOutTable[i] = false;
+				G2_CrossedOutTable[i] = false;
+				IsomorphismTable[i] = -1;
 
-		CheckIsomorphismTable(G1, G2);
-		return true;
+			}
+		}
+		else
+		{
+			//cout << "FUNCION NO ENCONTRADA, GRAFOS NO SON ISOMORFOS" << endl;
+			return false;
+		}
+
 	}
-	else
+
+	CheckIsomorphismTable(G1, G2);
+
+	std::cout << "FUNCION ISOMORFISMO" << std::endl;
+	std::cout << "G1" << " -> " << "G2" << std::endl;
+
+	for (int i = 0; i < G1->VertexQuantity(); i++)
 	{
-		cout << "FUNCION NO ENCONTRADA, GRAFOS NO SON ISOMORFOS" << endl;
-		return false;
+		std::cout << i << " -> " << IsomorphismTable[i] << std::endl;
 	}
+
+	return true;
 
 
 
@@ -519,12 +642,12 @@ void CGraph::CheckIsomorphismTable(CGraph* G1, CGraph* G2)
 	swap(IsomorphismTable[G1_Index_NoBijectionVertex], IsomorphismTable[G2_Index_NoBijectionVertex]);
 	delete G1_vertex;
 	delete G2_vertex;
-	std::cout << "FUNCION ISOMORFISMO CON SWAP" << std::endl;
-	std::cout << "G1" << " -> " << "G2" << std::endl;
+	//std::cout << "FUNCION ISOMORFISMO CON SWAP" << std::endl;
+	//std::cout << "G1" << " -> " << "G2" << std::endl;
 
-	for (int i = 0; i < 8; i++)
-	{
-		std::cout << i << " -> " << IsomorphismTable[i] << std::endl;
-	}
+	//for (int i = 0; i < 8; i++)
+	//{
+	//	std::cout << i << " -> " << IsomorphismTable[i] << std::endl;
+	//}
 }
 
