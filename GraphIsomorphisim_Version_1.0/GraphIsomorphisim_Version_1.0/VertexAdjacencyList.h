@@ -1,4 +1,6 @@
 #pragma once
+#include <iostream>
+using namespace std;
 
 
 struct Node
@@ -26,6 +28,8 @@ public:
 
 	bool IsAnElement(int value);
 	int ElementAtIndex(int index);
+
+	void PrintList();
 
 
 

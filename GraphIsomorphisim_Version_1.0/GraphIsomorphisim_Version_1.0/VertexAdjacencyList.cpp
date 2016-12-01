@@ -72,3 +72,11 @@ int CVertexAdjacencyList::ElementAtIndex(int index)
 	return temp->value; // It's in the list
 
 }
+
+void CVertexAdjacencyList::PrintList()
+{
+	for (int i = 0; i < size; i++)
+	{
+		std::cout << ElementAtIndex(i) << "->";
+	}
+}

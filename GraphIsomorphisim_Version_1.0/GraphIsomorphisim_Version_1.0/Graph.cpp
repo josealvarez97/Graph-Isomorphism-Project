@@ -150,20 +150,32 @@ int * CGraph::GetVerticesQuantityPerDegreeTableClassification(CGraph * G)
 
 bool CGraph::JJO(CVertexAdjacencyList* vertexArray_A[], CVertexAdjacencyList* vertexArray_B[], CVertexAdjacencyList * A, CVertexAdjacencyList * B/*, bool* G1_availabilityTable, bool* G2_availabilityTable, int* IsomorphismTable*/)
 {
+	std::cout << "--------------------------------------------------------------------------------" << std::endl;
+	std::cout << "Analizando vertice/lista: " << A->Value() << " & " << B->Value() << std::endl;
+	std::cout << "A: "; A->PrintList(); std::cout << endl;
+	std::cout << "B: "; B->PrintList(); std::cout << endl;
+
+
 	if (Available(A, 1) == Available(B, 2)
 		&& Available(A, 1) != 0)// Checkear disponibilidad
 	{
+		std::cout << "CrossOut: " << A->Value() << " & " << B->Value() << std::endl;
 		CrossOutInTable(A->Value(), B->Value()); // Marcar En Tabla
 
 		int A_1 = 0; // SERA QUE ESTOS CONTADORES SON GLOBALES O LOCAes?????
 		int B_1 = 0;
 
-		while (A_1 + 1 < A->Size() /*&& Assigned(A_1 + 1, 1)*/)
+
+		while (A_1 /*+ 1*/ < A->Size() /*&& Assigned(A_1 + 1, 1)*/
+			&& Available(A, 1) == Available(B, 2)
+			&& Available(A, 1) != 0)
 		{
 			while (Assigned(A->ElementAtIndex(A_1), 1) && A_1 + 1 < A->Size())
 			{
 				A_1++;
 			}
+			std::cout << "A_1 se sumo hasta " << A_1 << std::endl;
+
 			while (Assigned(B->ElementAtIndex(B_1), 2) || (A->Size()/*degree*/ != B->Size()/*degree*/))
 			{
 				if (B_1 + 1 < B->Size())
@@ -173,17 +185,30 @@ bool CGraph::JJO(CVertexAdjacencyList* vertexArray_A[], CVertexAdjacencyList* ve
 				else
 					return false;
 			}
+			std::cout << "B_1 se sumo hasta " << B_1 << std::endl;
 
 			while (JJO(vertexArray_A, vertexArray_B, vertexArray_A[A->ElementAtIndex(A_1)], vertexArray_B[B->ElementAtIndex(B_1)]) == false)
 			{
+				std::cout << "JJO de A: " << A->Value() << "y B: " << B->Value() << " dio false" << std::endl;
 				// Queremos que sume
 				if (B_1 + 1 < B->Size())
 				{
 					B_1++;
+					std::cout << "Sumamos uno a B_1 = " << B->Value() << std::endl;
 				}
 				else
 				{
+
 					UncoverInTable(A->Value(), B->Value());
+					std::cout << "UncoverInTable = " << A->Value() << ", " << B->Value() << std::endl;
+					for (int i = 0; i < 6; i++)
+					{
+
+						std::cout << i << " -> " << G1_CrossedOutTable[i] << std::endl;
+						std::cout << i << " -> " << G2_CrossedOutTable[i] << std::endl;
+
+					}
+
 					return false;
 				}
 				// Pero nos aseguramos que sume lo necesario
@@ -196,12 +221,33 @@ bool CGraph::JJO(CVertexAdjacencyList* vertexArray_A[], CVertexAdjacencyList* ve
 					else
 					{
 						UncoverInTable(A->Value(), B->Value());
+						std::cout << "UncoverInTable = " << A->Value() << ", " << B->Value() << std::endl;
+						std::cout << "G1_CrossedOutTable: " << std::endl;
+						for (int i = 0; i < 6; i++)
+						{
+							if (G1_CrossedOutTable[i])
+								std::cout << i << " -> " << "True" << std::endl;
+							else
+								std::cout << i << " -> " << "false" << std::endl;
+
+						}
+						std::cout << "G2_CrossedOutTable: " << std::endl;
+						for (int i = 0; i < 6; i++)
+						{
+							if (G2_CrossedOutTable[i])
+								std::cout << i << " -> " << "True" << std::endl;
+							else
+								std::cout << i << " -> " << "false" << std::endl;
+
+						}
 						return false;
 					}
 				}
 			}
-			while (Assigned(A->ElementAtIndex(A_1 + 1), 1) == false) // if its not assigned. // esta validacion va en el while
-				A_1++;
+			//while (Assigned(A->ElementAtIndex(A_1/* + 1*/), 1) == false) // if its not assigned. // esta validacion va en el while
+			//{
+			//	A_1++;
+			//}
 		}
 		return true;
 	}
@@ -209,10 +255,10 @@ bool CGraph::JJO(CVertexAdjacencyList* vertexArray_A[], CVertexAdjacencyList* ve
 	else if (Available(A, 1) == Available(B, 2) && Available(A, 1) == 0)
 	{
 		CrossOutInTable(A->Value(), B->Value()); // Marcar En Tabla
-
+		std::cout << "FUNCION ISOMORFISMO" << std::endl;
 		std::cout << "G1" << " -> " << "G2" << std::endl;
 
-		for (int i = 0; i < 6; i++)
+		for (int i = 0; i < 8; i++)
 		{
 			std::cout << i << " -> " << IsomorphismTable[i] << std::endl;
 		}
