@@ -1,3 +1,6 @@
-﻿  Main.cpp
+﻿  VertexAdjacencyList.cpp
+  Main.cpp
+  Graph.cpp
+  Generating Code...
   GraphIsomorphisim_Version_1.0.vcxproj -> C:\Users\jjaa0\Documents\GitHub\Graph-Isomorphism-Project\GraphIsomorphisim_Version_1.0\Debug\GraphIsomorphisim_Version_1.0.exe
   GraphIsomorphisim_Version_1.0.vcxproj -> C:\Users\jjaa0\Documents\GitHub\Graph-Isomorphism-Project\GraphIsomorphisim_Version_1.0\Debug\GraphIsomorphisim_Version_1.0.pdb (Partial PDB)

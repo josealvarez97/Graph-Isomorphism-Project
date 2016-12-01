@@ -64,5 +64,7 @@ public:
 
 	//static int SerachIndexInGraphArray(int vertexOfInterest);
 
+	static void CheckIsomorphismTable(CGraph* G1, CGraph* G2);
+
 };
 

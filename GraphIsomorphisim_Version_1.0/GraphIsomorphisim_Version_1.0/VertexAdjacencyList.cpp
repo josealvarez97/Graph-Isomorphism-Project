@@ -54,6 +54,9 @@ bool CVertexAdjacencyList::IsAnElement(int value)
 	{
 		if (temp->value == value)
 			return true;
+		else
+			temp = temp->next;
+
 	}
 	return false;
 }
