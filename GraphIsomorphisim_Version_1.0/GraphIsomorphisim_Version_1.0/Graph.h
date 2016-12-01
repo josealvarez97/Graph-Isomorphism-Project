@@ -69,7 +69,8 @@ public:
 
 	//static int SerachIndexInGraphArray(int vertexOfInterest);
 
-	static void CheckIsomorphismTable(CGraph* G1, CGraph* G2);
+	static bool CheckIsomorphismTable(CGraph* G1, CGraph* G2);
+	static bool CheckIsomorphismTableAdjacentVertices(CVertexAdjacencyList* A, CVertexAdjacencyList* B);
 
 };
 
