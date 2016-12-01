@@ -92,7 +92,43 @@ int CGraph::LeastDistanceVertex(int * distanceValues)
 
 bool CGraph::Isomorphism(CGraph* G1, CGraph* G2)
 {
-	return JJO(G1,G2);
+	bool VertexMatch = CompareVerticesQuantity(G1, G2);
+	bool EdgesMath = CompareEdgesQuantity(G1, G2);
+	bool VertexPerDegreeTableMatch = CompareVerticesPerDegreeTables(G1, G2);
+
+	if (!VertexMatch)
+		cout << "Number of vertices doesn't match" << endl;
+
+	if (!EdgesMath)
+		cout << "Number of edges doesn't match" << endl;
+
+	if (!VertexPerDegreeTableMatch)
+		cout << "Vertex Per Degree tables don't match" << endl;
+
+	if (!VertexMatch || !EdgesMath || !VertexPerDegreeTableMatch)
+	{
+		cout << "THEREFORE, GRAPHS ARE NOT ISOMORPHIC" << endl;
+		return false;
+	}
+
+
+	if (!JJO(G1, G2))
+	{
+		cout << "ISOMORPHISM FUNCTION NOT FOUND, GRAPHS ARE NOT ISOMORPHIC" << endl;
+		return false;
+	}
+	else
+	{
+		//std::cout << "ISOMORPHISM FUNCTION" << std::endl;
+		//std::cout << "G1" << " -> " << "G2" << std::endl;
+
+		//for (int i = 0; i < G1->VertexQuantity(); i++)
+		//{
+		//	std::cout << i << " -> " << IsomorphismTable[i] << std::endl;
+		//}
+		//return true;
+	}
+
 }
 
 bool CGraph::CompareVerticesQuantity(CGraph* G1, CGraph* G2)
@@ -112,6 +148,19 @@ int CGraph::GetEdgesQuantity(CGraph* G)
 bool CGraph::CompareEdgesQuantity(CGraph* G1, CGraph* G2)
 {
 	return GetEdgesQuantity(G1) == GetEdgesQuantity(G2);
+}
+
+bool CGraph::CompareVerticesPerDegreeTables(CGraph * G1, CGraph * G2)
+{
+	int * G1table = GetVerticesQuantityPerDegreeTableClassification(G1);
+	int * G2table = GetVerticesQuantityPerDegreeTableClassification(G2);
+
+	for (int i = 0; i < G1->VertexQuantity(); i++)
+	{
+		if (G1table[i] != G2table[i])
+			return false;
+	}
+	return true;
 }
 
 void CGraph::PrintVertexDegreeTable(CGraph* G)
@@ -307,13 +356,13 @@ bool CGraph::JJO(CVertexAdjacencyList* vertexArray_A[], CVertexAdjacencyList* ve
 	else if (Available(A, 1) == Available(B, 2) && Available(A, 1) == 0)
 	{
 		CrossOutInTable(A->Value(), B->Value()); // Marcar En Tabla
-		//std::cout << "FUNCION ISOMORFISMO SIN SWAP" << std::endl;
-		//std::cout << "G1" << " -> " << "G2" << std::endl;
+		std::cout << "FUNCION ISOMORFISMO SIN SWAP" << std::endl;
+		std::cout << "G1" << " -> " << "G2" << std::endl;
 
-		//for (int i = 0; i < 8; i++)
-		//{
-		//	std::cout << i << " -> " << IsomorphismTable[i] << std::endl;
-		//}
+		for (int i = 0; i < 8; i++)
+		{
+			std::cout << i << " -> " << IsomorphismTable[i] << std::endl;
+		}
 		return true;
 	}
 	else
@@ -328,7 +377,7 @@ bool CGraph::JJO(/*CVertexAdjacencyList* vertexArray_G1[], CVertexAdjacencyList*
 	//Esta es una trampa bien cocha
 	//CVertexAdjacencyList* vertexArray = G1->vertexArray;
 
-	PrintGraphsInfo(G1,G2);
+	//PrintGraphsInfo(G1, G2);
 
 	// Asumiendo solo llamaremos a JJO para grafos con igual numero n de vertices
 	G1_CrossedOutTable = new bool[G1->VertexQuantity()];
@@ -367,10 +416,20 @@ bool CGraph::JJO(/*CVertexAdjacencyList* vertexArray_G1[], CVertexAdjacencyList*
 	while (JJO(G1->vertexArray, G2->vertexArray, G1->vertexArray[G1_i], G2->vertexArray[G2_i]) == false)
 	{
 		if (G2_i + 1 < G2->VertexQuantity())
+		{
 			G2_i++;
+			// set all default values in false
+			for (int i = 0; i < G1->VertexQuantity(); i++)
+			{
+				G1_CrossedOutTable[i] = false;
+				G2_CrossedOutTable[i] = false;
+				IsomorphismTable[i] = -1;
+
+			}
+		}
 		else
 		{
-			cout << "FUNCION NO ENCONTRADA, GRAFOS NO SON ISOMORFOS" << endl;
+			//cout << "FUNCION NO ENCONTRADA, GRAFOS NO SON ISOMORFOS" << endl;
 			return false;
 		}
 
