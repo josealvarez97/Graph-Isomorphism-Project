@@ -1,6 +1,7 @@
 ﻿#include <iostream>
 #include "Graph.h"
 #include "ReadInput.h"
+#include <Windows.h>
 using namespace std;
 
 int main()
@@ -12,10 +13,12 @@ int main()
 	string grafo1 = "";
 	string grafo2 = "";
 	string decision = "";
-	string adress = "C:/Users/Oscar/Desktop/Proyecto Discreta/Graph-Isomorphism-Project/GraphIsomorphisim_Version_1.0/GraphIsomorphisim_Version_1.0/Batería de pruebas/";
+	//string adress = "C:/Users/Oscar/Desktop/Proyecto Discreta/Graph-Isomorphism-Project/GraphIsomorphisim_Version_1.0/GraphIsomorphisim_Version_1.0/Batería de pruebas/";
+	string adress = "C:/Users/jjaa0/Documents/GitHub/Graph-Isomorphism-Project/GraphIsomorphisim_Version_1.0/GraphIsomorphisim_Version_1.0/Batería de pruebas/";
 
 	while (true)
 	{
+		system("CLS");
 		cout << "  convert(Ingrese direccion de la entrada para el primer grafo).ToEnglish()  " << endl;
 		cin >> grafo1;
 		CGraph* G1 = new CGraph(CReadInput::GetVertexQuantity(adress+grafo1));

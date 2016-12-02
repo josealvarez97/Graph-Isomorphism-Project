@@ -50,7 +50,7 @@ bool CVertexAdjacencyList::Add(int value)
 bool CVertexAdjacencyList::IsAnElement(int value)
 {
 	Node* temp = head;
-	while (temp->next != nullptr)
+	while (temp/*->next */!= nullptr)
 	{
 		if (temp->value == value)
 			return true;
