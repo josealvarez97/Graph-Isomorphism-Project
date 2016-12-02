@@ -251,68 +251,35 @@ int * CGraph::GetVerticesQuantityPerDegreeTableClassification(CGraph * G)
 
 bool CGraph::JJO(CVertexAdjacencyList* vertexArray_A[], CVertexAdjacencyList* vertexArray_B[], CVertexAdjacencyList * A, CVertexAdjacencyList * B/*, bool* G1_availabilityTable, bool* G2_availabilityTable, int* IsomorphismTable*/)
 {
-	//std::cout << "--------------------------------------------------------------------------------" << std::endl;
-	//std::cout << "Analizando vertice/lista: " << A->Value() << " & " << B->Value() << std::endl;
-	//std::cout << "A: "; A->PrintList(); std::cout << endl;
-	//std::cout << "B: "; B->PrintList(); std::cout << endl;
-
 
 	if (Available(A, 1) == Available(B, 2)
-		&& Available(A, 1) != 0)// Checkear disponibilidad
+		&& Available(A, 1) != 0)// CHECKEAR LA DISPONIBILIDAD. (NIGGAS)
 	{
-		//std::cout << "CrossOut: " << A->Value() << " & " << B->Value() << std::endl;
-		CrossOutInTable(A->Value(), B->Value()); // Marcar En Tabla
 
-		int A_1 = 0; // SERA QUE ESTOS CONTADORES SON GLOBALES O LOCAes?????
-		int B_1 = 0;
-
-
-		while (A_1 /*+ 1*/ < A->Size() /*&& Assigned(A_1 + 1, 1)*/
-			&& Available(A, 1) == Available(B, 2)
-			&& Available(A, 1) != 0)
+		// <<< VER PAREJAS DE ROJOS >>>
+		if (CheckRedPairs(A, B))
 		{
-			while (Assigned(A->ElementAtIndex(A_1), 1) && A_1 + 1 < A->Size())
+			// <<< TODO ESTO VA DENTRO DEL IF QUE TIENE EL METODO QUE REVISE LOR ROJOS. Si true entra
+
+			CrossOutInTable(A->Value(), B->Value()); // Marcar en tabla
+
+			int A_1 = 0;
+			int B_1 = 0;
+
+
+			
+			while (A_1 /*+ 1*/ < A->Size() /*&& Assigned(A_1 + 1, 1)*/
+				&& Available(A, 1) == Available(B, 2)
+				&& Available(A, 1) != 0) // BUSCA EL PRIMER A NEGRO (DISPONIBLE)
 			{
-				A_1++;
-			}
-			//std::cout << "A_1 se sumo hasta " << A_1 << std::endl;
 
-			while (Assigned(B->ElementAtIndex(B_1), 2) || (A->Size()/*degree*/ != B->Size()/*degree*/))
-			{
-				if (B_1 + 1 < B->Size())
+				// LLEGAR AL PRIMER NEGRO DISPONIBLE
+				while (Assigned(A->ElementAtIndex(A_1), 1) && A_1 + 1 < A->Size()) 
 				{
-					B_1++;
+					A_1++;
 				}
-				else
-					return false;
-			}
-			//std::cout << "B_1 se sumo hasta " << B_1 << std::endl;
 
-			while (JJO(vertexArray_A, vertexArray_B, vertexArray_A[A->ElementAtIndex(A_1)], vertexArray_B[B->ElementAtIndex(B_1)]) == false)
-			{
-				//std::cout << "JJO de A: " << A->Value() << "y B: " << B->Value() << " dio false" << std::endl;
-				// Queremos que sume
-				if (B_1 + 1 < B->Size())
-				{
-					B_1++;
-					//std::cout << "Sumamos uno a B_1 = " << B->Value() << std::endl;
-				}
-				else
-				{
-
-					UncoverInTable(A->Value(), B->Value());
-					//std::cout << "UncoverInTable = " << A->Value() << ", " << B->Value() << std::endl;
-					//for (int i = 0; i < 6; i++)
-					//{
-
-					//	std::cout << i << " -> " << G1_CrossedOutTable[i] << std::endl;
-					//	std::cout << i << " -> " << G2_CrossedOutTable[i] << std::endl;
-
-					//}
-
-					return false;
-				}
-				// Pero nos aseguramos que sume lo necesario
+				// CORRALO MIENTRAS NO SEA NEGRO (DISPONIBLE) NI ULTIMO
 				while (Assigned(B->ElementAtIndex(B_1), 2) || (A->Size()/*degree*/ != B->Size()/*degree*/))
 				{
 					if (B_1 + 1 < B->Size())
@@ -320,89 +287,107 @@ bool CGraph::JJO(CVertexAdjacencyList* vertexArray_A[], CVertexAdjacencyList* ve
 						B_1++;
 					}
 					else
+						return false;
+				}
+
+				// INTENTE APLICAR JJO CON LOS ADYACENTES ACTUALES
+				while (JJO(vertexArray_A, vertexArray_B, vertexArray_A[A->ElementAtIndex(A_1)], vertexArray_B[B->ElementAtIndex(B_1)]) == false)
+				{
+					// Queremos que sume si no le cuadro el B_1
+					if (B_1 + 1 < B->Size())
 					{
+						B_1++;
+					}
+					else
+					{
+						// Si se le acaban los B_1 es porque no cuadraban A y B
 						UncoverInTable(A->Value(), B->Value());
-						//std::cout << "UncoverInTable = " << A->Value() << ", " << B->Value() << std::endl;
-						//std::cout << "G1_CrossedOutTable: " << std::endl;
-						//for (int i = 0; i < 6; i++)
-						//{
-						//	if (G1_CrossedOutTable[i])
-						//		std::cout << i << " -> " << "True" << std::endl;
-						//	else
-						//		std::cout << i << " -> " << "false" << std::endl;
-
-						//}
-						//std::cout << "G2_CrossedOutTable: " << std::endl;
-						//for (int i = 0; i < 6; i++)
-						//{
-						//	if (G2_CrossedOutTable[i])
-						//		std::cout << i << " -> " << "True" << std::endl;
-						//	else
-						//		std::cout << i << " -> " << "false" << std::endl;
-
-						//}
 						return false;
 					}
+
+					// Pero nos aseguramos que sume lo necesario, porque el primer ++ es para probar el siguiente
+					// Este es para verificar que ese siguiente sea un negro.
+					while (Assigned(B->ElementAtIndex(B_1), 2) || (A->Size()/*degree*/ != B->Size()/*degree*/))
+					{
+						if (B_1 + 1 < B->Size()) // misma historia que arriba en validacion de suma para B_1
+						{
+							B_1++;
+						}
+						else
+						{
+							UncoverInTable(A->Value(), B->Value());
+							return false;
+						}
+					}
 				}
+
 			}
-			//while (Assigned(A->ElementAtIndex(A_1/* + 1*/), 1) == false) // if its not assigned. // esta validacion va en el while
+
+			//// Anadicion creo que debe ser solo en caso trivial
+			//if (CheckIsomorphismTableAdjacentVertices(A, B))
+			//	return true;
+			//else
 			//{
-			//	A_1++;
+			//	UncoverInTable(A->Value(), B->Value());
+			//	return false;
 			//}
+
+			// Este true significa que se rompio el while de arriba, porque JOO dio true, lo que 
+			// significa que A y B cuadran.
+			return true;
 		}
+		else
+		{
 
-		//// Anadicion creo que debe ser solo en caso trivial
-		//if (CheckIsomorphismTableAdjacentVertices(A, B))
-		//	return true;
-		//else
-		//{
-		//	UncoverInTable(A->Value(), B->Value());
-		//	return false;
-		//}
-		return true;
+			// RETORNE FALSO SI LOS ROJOS NO CUADRAN. METODO DEL COLOCHASO.
+			// ACA NO DESMARCO PORQUE NUNCA LOS MARQUE
+			return false;
+		}
+		
 	}
-
+	// CASO TRIVIAL: CUANDO LOS ADYACENTES YA ESTAN TODOS MARCADOS DE A Y B.
 	else if (Available(A, 1) == Available(B, 2) && Available(A, 1) == 0)
 	{
-		CrossOutInTable(A->Value(), B->Value()); // Marcar En Tabla
-		std::cout << "FUNCION ISOMORFISMO SIN SWAP" << std::endl;
-		std::cout << "G1" << " -> " << "G2" << std::endl;
-
-		for (int i = 0; i < 8; i++)
+		if (CheckRedPairs(A, B))
 		{
-			std::cout << i << " -> " << IsomorphismTable[i] << std::endl;
-		}
+			CrossOutInTable(A->Value(), B->Value()); // Marcar En Tabla
+			/*std::cout << "FUNCION ISOMORFISMO PATITO" << std::endl;
+			std::cout << "G1" << " -> " << "G2" << std::endl;
+
+			for (int i = 0; i < 8; i++)
+			{
+				std::cout << i << " -> " << IsomorphismTable[i] << std::endl;
+			}*/
 
 
-		//Anadicion
-		if (CheckIsomorphismTableAdjacentVertices(A, B))
+			////Añadicion de chequear adyacentes
+			//if (CheckIsomorphismTableAdjacentVertices(A, B))
+			//	return true;
+			//else
+			//	return false; // No cuadraron adjacentes de A  y B consultando funcion de isomorfismo.
+
 			return true;
+		}
 		else
-			return false;
+			return false; // No cuadraron red pairs
 	}
 	else
 	{
-		//UncoverInTable(A->Value(), B->Value());
+		// No cuadraron disponibilidades
 		return false;
+		// no se da uncover porque no se marca en este nivel de recursion ya que no entro al if donde se hace
 	}
 }
 
 bool CGraph::JJO(/*CVertexAdjacencyList* vertexArray_G1[], CVertexAdjacencyList* vertexArray_G2[],*/ CGraph* G1, CGraph * G2)
 {
-	//Esta es una trampa bien cocha
-	//CVertexAdjacencyList* vertexArray = G1->vertexArray;
 
-	//PrintGraphsInfo(G1, G2);
 
 	// Asumiendo solo llamaremos a JJO para grafos con igual numero n de vertices
 	G1_CrossedOutTable = new bool[G1->VertexQuantity()];
 	G2_CrossedOutTable = new bool[G2->VertexQuantity()];
 	IsomorphismTable = new int[G1->VertexQuantity()]; // position is a G1 vertex, and the value the assigned vertex of G2
 
-
-	//bool * prueba = new bool[G1->VertexQuantity()];
-	//int * prubaint = new int[G1->VertexQuantity()];
-	//int * pruebaint2 = new int[4];
 
 	// set all default values in false
 	for (int i = 0; i < G1->VertexQuantity(); i++)
@@ -413,17 +398,6 @@ bool CGraph::JJO(/*CVertexAdjacencyList* vertexArray_G1[], CVertexAdjacencyList*
 
 	}
 
-
-	//JJO(G1->vertexArray, G2->vertexArray, G1->vertexArray[1], G2->vertexArray[1]);
-
-
-	// vertexArray lo interpreta como puntero a lista y no como arreglo. Listo, arreglado
-
-	//JOO COPIA
-	//if (Available(A, 1) == Available(B, 2)
-	//	&& Available(A, 1) != 0)
-	//{
-		//CrossOutInTable(A->Value(), B->Value());
 
 	int G1_i = 0;
 	int G2_i = 0;
@@ -450,58 +424,6 @@ bool CGraph::JJO(/*CVertexAdjacencyList* vertexArray_G1[], CVertexAdjacencyList*
 
 	}
 
-
-
-	//while (!CheckIsomorphismTable(G1, G2))
-	//{
-	//	if (G2_i + 1 < G2->VertexQuantity())
-	//	{
-	//		G2_i++;
-	//		// set all default values in false
-	//		for (int i = 0; i < G1->VertexQuantity(); i++)
-	//		{
-	//			G1_CrossedOutTable[i] = false;
-	//			G2_CrossedOutTable[i] = false;
-	//			IsomorphismTable[i] = -1;
-
-	//		}
-	//	}
-	//	else
-	//	{
-	//		//cout << "FUNCION NO ENCONTRADA, GRAFOS NO SON ISOMORFOS" << endl;
-	//		return false;
-	//	}
-
-	//	JJO(G1->vertexArray, G2->vertexArray, G1->vertexArray[G1_i], G2->vertexArray[G2_i]);
-	//	CheckIsomorphismTable(G1, G2);
-	//}
-	//while (CheckIsomorphismTable(G1, G2)) // True means its bad
-	//{
-	//	while (JJO(G1->vertexArray, G2->vertexArray, G1->vertexArray[G1_i], G2->vertexArray[G2_i]) == false)
-	//	{
-	//		if (G2_i + 1 < G2->VertexQuantity())
-	//		{
-	//			G2_i++;
-	//			// set all default values in false
-	//			for (int i = 0; i < G1->VertexQuantity(); i++)
-	//			{
-	//				G1_CrossedOutTable[i] = false;
-	//				G2_CrossedOutTable[i] = false;
-	//				IsomorphismTable[i] = -1;
-
-	//			}
-	//		}
-	//		else
-	//		{
-	//			//cout << "FUNCION NO ENCONTRADA, GRAFOS NO SON ISOMORFOS" << endl;
-	//			return false;
-	//		}
-
-	//	}
-	//}
-
-
-
 	std::cout << "FUNCION ISOMORFISMO" << std::endl;
 	std::cout << "G1" << " -> " << "G2" << std::endl;
 
@@ -512,54 +434,6 @@ bool CGraph::JJO(/*CVertexAdjacencyList* vertexArray_G1[], CVertexAdjacencyList*
 
 	return true;
 
-
-
-
-	//	while (G1_i + 1 < G1->VertexQuantity())
-	//	{
-	//		while (Assigned(G1->vertexArray[G1_i]->Value(), 1) && G1_i + 1 < G1->VertexQuantity())
-	//		{
-	//			G1_i++;
-	//		}
-	//		while (Assigned(G2->vertexArray[G2_i]->Value(), 2) || (G1->Neighbors(G1_i).Size()/*degree*/ != G2->Neighbors(G2_i).Size()/*degree*/))
-	//		{
-	//			if (G2_i + 1 < G2->VertexQuantity())
-	//			{
-	//				G2_i++;
-	//			}
-	//			else
-	//				return false;
-	//		}
-	//
-	//		while (JJO(G1->vertexArray, G2->vertexArray, G1->vertexArray[G1_i], G2->vertexArray[G2_i]) == false)
-	//		{
-	//			while (Assigned(G2->vertexArray[G2_i]->Value(), 2) || (G1->Neighbors(G1_i).Size()/*degree*/ != G2->Neighbors(G2_i).Size()/*degree*/))
-	//			{
-	//				if (G2_i + 1 < G2->VertexQuantity())
-	//				{
-	//					G2_i++;
-	//				}
-	//				else
-	//					return false;
-	//			}
-	//		}
-	//		G1_i++;
-	//	}
-	//	return true;
-	//}
-
-	//else if (Available(A, 1) == Available(B, 2) && Available(A, 1) == 0)
-	//{
-	//	return true;
-	//}
-	//else
-	//{
-	//	UncoverInTable(A->Value(), B->Value());
-	//	return false;
-	// FIN JOO COPIA
-
-
-	//return false;
 }
 
 
@@ -736,21 +610,13 @@ bool CGraph::CheckIsomorphismTable(CGraph* G1, CGraph* G2)
 
 bool CGraph::CheckIsomorphismTableAdjacentVertices(CVertexAdjacencyList * A, CVertexAdjacencyList * B)
 {
-
-
-
 	// VERTICES TO COMPARE
 	// Compare vertices acording to isomorphism table.
 
-	// DATA TO OBTAIN
-	//int A_NoBijectionVertex = 0;
-	//int B_NoBijectionVertex = 0;
-	//int A_Index_NoBijectionVertex = 0;
-	//int B_Index_NoBijectionVertex = 0;
+
 	bool EVERYTHINGOK = true;
 
 
-	// FIND G1_NO_BIJECTION VERTEX
 
 	for (int j = 0; j < A->Size(); j++)
 	{
@@ -761,74 +627,25 @@ bool CGraph::CheckIsomorphismTableAdjacentVertices(CVertexAdjacencyList * A, CVe
 			EVERYTHINGOK = false;
 		}
 	}
-
-
 	return EVERYTHINGOK;
+}
 
-	//// FIND G1_NoBijectionVertex INDEX
-	//G1_Index_NoBijectionVertex = G1_NoBijectionVertex;  // ITS JUST THE SAME THING, SINCE THE DOMAIN OF FUNCTION IS THE POSITION OF THE ARRAY
+bool CGraph::CheckRedPairs(CVertexAdjacencyList * A, CVertexAdjacencyList * B)
+{
+	for (int i = 0; i < A->Size(); i++) // RECORRER ADYACENTES DE A
+	{
+		if (Assigned(A->ElementAtIndex(i), 1)) // SI ES ROJO, NOS INTERESA
+		{
+			// Guardar valor
+			int A_RedAdjacentValue = A->ElementAtIndex(i);
+			// Ir a tab iso y buscar pareja, SI NO ESTA, RETURN FALSE.
+			if (B->IsAnElement(IsomorphismTable[A_RedAdjacentValue]) == false)
+				return false;
+			// Si SI ESTA, CONTINUE EVALUANDO LOS ADYACENTES RESTANTES DE A
 
+		}
+	}
 
-
-	//													// FIND G2_NO_BIJECTION_VERTEX
-	//bool iTsInArray = false;
-
-	//for (int a = 0; a < G2_vertex->Size(); a++) // Recorrer List (G2_vertex adjacents)
-	//{
-	//	iTsInArray = false;
-
-	//	for (int b = 0; b < G2->VertexQuantity(); b++) // Recorrer Array (miniIso Table)
-	//	{
-	//		if (G2_vertex->ElementAtIndex(a) == miniCorrectIsomorphismTable[b])
-	//			iTsInArray = true;
-	//	}
-
-	//	if (iTsInArray == false)
-	//	{
-	//		G2_NoBijectionVertex = G2_vertex->ElementAtIndex(a);
-	//		break;
-	//	}
-	//}
-
-
-	//// FIND G2_NoBijectionVertex_INDEX
-
-	//for (int c = 0; c < G1->VertexQuantity(); c++) // Recorrer array (Iso table)
-	//{
-	//	if (G2_NoBijectionVertex == IsomorphismTable[c])
-	//	{
-	//		G2_Index_NoBijectionVertex = c;
-	//	}
-	//}
-
-
-
-	//// MAKE THE SWAP!!!!!!!!!!
-	//if (executeSwap == true)
-	//{
-	//	//swap(IsomorphismTable[G1_Index_NoBijectionVertex], IsomorphismTable[G2_Index_NoBijectionVertex]);
-	//	return false;
-	//}
-	//else
-	//{
-	//	delete G1_vertex;
-	//	delete G2_vertex;
-
-	//	delete miniCorrectIsomorphismTable;
-	//	return true;
-	//}
-
-
-
-	//delete G1_vertex;
-	//delete G2_vertex;
-	////std::cout << "FUNCION ISOMORFISMO CON SWAP" << std::endl;
-	////std::cout << "G1" << " -> " << "G2" << std::endl;
-
-	////for (int i = 0; i < 8; i++)
-	////{
-	////	std::cout << i << " -> " << IsomorphismTable[i] << std::endl;
-	////}
-	//delete miniCorrectIsomorphismTable;
+	return true; // No se encontro ningun problema, todo esta en orden.
 }
 

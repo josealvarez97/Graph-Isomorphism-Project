@@ -72,5 +72,7 @@ public:
 	static bool CheckIsomorphismTable(CGraph* G1, CGraph* G2);
 	static bool CheckIsomorphismTableAdjacentVertices(CVertexAdjacencyList* A, CVertexAdjacencyList* B);
 
+
+	static bool CheckRedPairs(CVertexAdjacencyList * A, CVertexAdjacencyList * B);
 };
 
