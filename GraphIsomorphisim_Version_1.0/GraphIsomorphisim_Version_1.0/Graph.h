@@ -62,7 +62,7 @@ public:
 	static bool JJO(/*CVertexAdjacencyList* vertexArray_G1[], CVertexAdjacencyList* vertexArray_G2[], */CGraph * G1, CGraph* G2);
 
 
-	static int Available(CVertexAdjacencyList* A, int table);
+	static int AvailableAdjacents(CVertexAdjacencyList* A, int table);
 	static bool Assigned(int vertex, int table);
 	static void UncoverInTable(int VertexA, int VertexB);
 	static void CrossOutInTable(int vertexA, int vertexB);

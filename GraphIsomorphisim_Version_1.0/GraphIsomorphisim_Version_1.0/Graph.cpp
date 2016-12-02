@@ -241,8 +241,8 @@ int * CGraph::GetVerticesQuantityPerDegreeTableClassification(CGraph * G)
 bool CGraph::JJO(CVertexAdjacencyList* vertexArray_A[], CVertexAdjacencyList* vertexArray_B[], CVertexAdjacencyList * A, CVertexAdjacencyList * B/*, bool* G1_availabilityTable, bool* G2_availabilityTable, int* IsomorphismTable*/)
 {
 
-	if (Available(A, 1) == Available(B, 2)
-		&& Available(A, 1) != 0)// CHECKEAR LA DISPONIBILIDAD. (NIGGAS)
+	if (AvailableAdjacents(A, 1) == AvailableAdjacents(B, 2)
+		&& AvailableAdjacents(A, 1) != 0)// CHECKEAR LA DISPONIBILIDAD. (NIGGAS)
 	{
 
 		// <<< VER PAREJAS DE ROJOS >>>
@@ -258,8 +258,8 @@ bool CGraph::JJO(CVertexAdjacencyList* vertexArray_A[], CVertexAdjacencyList* ve
 
 			
 			while (A_1 /*+ 1*/ < A->Size() /*&& Assigned(A_1 + 1, 1)*/
-				&& Available(A, 1) == Available(B, 2)
-				&& Available(A, 1) != 0) // BUSCA EL PRIMER A NEGRO (DISPONIBLE)
+				&& AvailableAdjacents(A, 1) == AvailableAdjacents(B, 2)
+				&& AvailableAdjacents(A, 1) != 0) // BUSCA EL PRIMER A NEGRO (DISPONIBLE)
 			{
 
 				// LLEGAR AL PRIMER NEGRO DISPONIBLE
@@ -326,7 +326,7 @@ bool CGraph::JJO(CVertexAdjacencyList* vertexArray_A[], CVertexAdjacencyList* ve
 		
 	}
 	// CASO TRIVIAL: CUANDO LOS ADYACENTES YA ESTAN TODOS MARCADOS DE A Y B.
-	else if (Available(A, 1) == Available(B, 2) && Available(A, 1) == 0)
+	else if (AvailableAdjacents(A, 1) == AvailableAdjacents(B, 2) && AvailableAdjacents(A, 1) == 0)
 	{
 		if (CheckRedPairs(A, B))
 		{
@@ -406,7 +406,7 @@ bool CGraph::JJO(/*CVertexAdjacencyList* vertexArray_G1[], CVertexAdjacencyList*
 
 
 // Returns how many vertices are not "red"
-int CGraph::Available(CVertexAdjacencyList * A, int table)
+int CGraph::AvailableAdjacents(CVertexAdjacencyList * A, int table)
 {
 	int count = 0;
 	for (int i = 0; i < A->Size(); i++)
