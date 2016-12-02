@@ -117,17 +117,6 @@ bool CGraph::Isomorphism(CGraph* G1, CGraph* G2)
 		cout << "ISOMORPHISM FUNCTION NOT FOUND, GRAPHS ARE NOT ISOMORPHIC" << endl;
 		return false;
 	}
-	else
-	{
-		//std::cout << "ISOMORPHISM FUNCTION" << std::endl;
-		//std::cout << "G1" << " -> " << "G2" << std::endl;
-
-		//for (int i = 0; i < G1->VertexQuantity(); i++)
-		//{
-		//	std::cout << i << " -> " << IsomorphismTable[i] << std::endl;
-		//}
-		//return true;
-	}
 
 }
 
@@ -323,15 +312,6 @@ bool CGraph::JJO(CVertexAdjacencyList* vertexArray_A[], CVertexAdjacencyList* ve
 
 			}
 
-			//// Anadicion creo que debe ser solo en caso trivial
-			//if (CheckIsomorphismTableAdjacentVertices(A, B))
-			//	return true;
-			//else
-			//{
-			//	UncoverInTable(A->Value(), B->Value());
-			//	return false;
-			//}
-
 			// Este true significa que se rompio el while de arriba, porque JOO dio true, lo que 
 			// significa que A y B cuadran.
 			return true;
@@ -351,21 +331,7 @@ bool CGraph::JJO(CVertexAdjacencyList* vertexArray_A[], CVertexAdjacencyList* ve
 		if (CheckRedPairs(A, B))
 		{
 			CrossOutInTable(A->Value(), B->Value()); // Marcar En Tabla
-			/*std::cout << "FUNCION ISOMORFISMO PATITO" << std::endl;
-			std::cout << "G1" << " -> " << "G2" << std::endl;
-
-			for (int i = 0; i < 8; i++)
-			{
-				std::cout << i << " -> " << IsomorphismTable[i] << std::endl;
-			}*/
-
-
-			////Añadicion de chequear adyacentes
-			//if (CheckIsomorphismTableAdjacentVertices(A, B))
-			//	return true;
-			//else
-			//	return false; // No cuadraron adjacentes de A  y B consultando funcion de isomorfismo.
-
+			
 			return true;
 		}
 		else

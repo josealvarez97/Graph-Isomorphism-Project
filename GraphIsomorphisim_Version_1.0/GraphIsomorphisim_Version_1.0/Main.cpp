@@ -13,8 +13,7 @@ int main()
 	string grafo1 = "";
 	string grafo2 = "";
 	string decision = "";
-	//string adress = "C:/Users/Oscar/Desktop/Proyecto Discreta/Graph-Isomorphism-Project/GraphIsomorphisim_Version_1.0/GraphIsomorphisim_Version_1.0/Batería de pruebas/";
-	string adress = "C:/Users/jjaa0/Documents/GitHub/Graph-Isomorphism-Project/GraphIsomorphisim_Version_1.0/GraphIsomorphisim_Version_1.0/Batería de pruebas/";
+	string adress = "Batería de pruebas/";
 
 	while (true)
 	{
@@ -29,13 +28,8 @@ int main()
 		CReadInput::ReadInput(adress+grafo1, G1);
 		CReadInput::ReadInput(adress+grafo2, G2);
 
-
-		//bool hola = CGraph::JJO(G1, G2);
 		CGraph::PrintGraphsInfo(G1, G2);
 		bool Isomorphism = CGraph::Isomorphism(G1, G2);
-
-
-		//cin.get();
 
 		cout << "\n\n  DESEA CONTINUAR INGRESANDO OTROS GRAFOS? SI: Cualquier tecla  NO: presione 1" << endl;
 		cin >> decision;
@@ -46,6 +40,5 @@ int main()
 			break;
 		decision = "";
 	}
-
 	return 0;
 }
