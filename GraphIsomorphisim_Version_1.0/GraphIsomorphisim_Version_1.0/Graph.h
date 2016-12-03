@@ -19,15 +19,10 @@ public:
 	bool Adjacent(int x, int y); // tests whether there is and edge from vertices x to y
 	CVertexAdjacencyList Neighbors(int x); // lists all vertices y such that there is an edge from the vertices x to y
 	int Degree(int x); // returns the degree of vertex x
-	//static void Add_vertex(CGraph G, int x); // adds the vertex x, if it is not there;
-	//static void Remove_vertex(Cgraph G, int x, y); // adds theedge from the vertices x to y, if it is not there
+	
 	void AddEdge(int x, int y); // adds the edge from the vertices x to y, if it is not there
 	void RemoveEdge(int x, int y); // removes the edge from the vertices x to y, if it is there
-	//static void Get_vertex_value(CGraph G, int x, int y); // returns the value associated with the vertex x
-	//static void Set_vertex_value(CGraph G, int x, int v); // sets the value associated with the vertex x to v
-	//Structures that associate values to the edges usually also provide
-	//static void Get_edge_value(CGraph G, int x, int y); // returns the value associated with the edge (x,y)
-	//static void Set_edge_value(CGraph G, int x, int y, int v); // sets the value associated with the edge (x,y) to v
+	
 
 	static CVertexAdjacencyList Dijkstra(CGraph G, int sourceVertex, int destinyVertex);
 	static int LeastDistanceVertex(int* distanceValues);
@@ -37,10 +32,7 @@ public:
 	// Gets 
 	int VertexQuantity() { return vertQuantity; }
 
-	//DoubleLinkedList variable[4];
-
-	//int n = 0;
-	//int* arrayDinamico = (int*)malloc(n * sizeof(int));
+	
 
 
 	static bool Isomorphism(CGraph* G1, CGraph* G2);
@@ -59,7 +51,7 @@ public:
 	static bool JJO(CVertexAdjacencyList* vertexArray_A[], CVertexAdjacencyList* vertexArray_B[], CVertexAdjacencyList* A /*vertex A*/, CVertexAdjacencyList* B /*vertex B*/);
 
 	
-	static bool JJO(/*CVertexAdjacencyList* vertexArray_G1[], CVertexAdjacencyList* vertexArray_G2[], */CGraph * G1, CGraph* G2);
+	static bool JJO(CGraph * G1, CGraph* G2);
 
 
 	static int AvailableAdjacents(CVertexAdjacencyList* A, int table);
@@ -67,7 +59,7 @@ public:
 	static void UncoverInTable(int VertexA, int VertexB);
 	static void CrossOutInTable(int vertexA, int vertexB);
 
-	//static int SerachIndexInGraphArray(int vertexOfInterest);
+	
 
 	static bool CheckIsomorphismTable(CGraph* G1, CGraph* G2);
 	static bool CheckIsomorphismTableAdjacentVertices(CVertexAdjacencyList* A, CVertexAdjacencyList* B);

@@ -80,7 +80,7 @@ CVertexAdjacencyList CGraph::Dijkstra(CGraph G, int sourceVertex, int destinyVer
 
 	lengthTraversed += distancesValues[current];
 	// Alternative checking algorithm
-	//if(distancesValues[current] < distancesValues[current] + )
+	
 
 	return CVertexAdjacencyList();
 }
@@ -204,10 +204,7 @@ int CGraph::GetSumOfVerticesDegrees(CGraph * G)
 {
 
 	int* degreeTable = GetVertexDegreeTable(G);
-	//int* classificationArray = new int[G->VertexQuantity()];
-
-	//for (int i = 0; i < G->VertexQuantity(); i++)
-	//	classificationArray[i] = G->Degree(i);
+	
 	int degreeSum = 0;
 	for (int i = 0; i < G->VertexQuantity(); i++)
 		degreeSum += degreeTable[i];
@@ -257,7 +254,7 @@ bool CGraph::JJO(CVertexAdjacencyList* vertexArray_A[], CVertexAdjacencyList* ve
 
 
 			
-			while (A_1 /*+ 1*/ < A->Size() /*&& Assigned(A_1 + 1, 1)*/
+			while (A_1  < A->Size() 
 				&& AvailableAdjacents(A, 1) == AvailableAdjacents(B, 2)
 				&& AvailableAdjacents(A, 1) != 0) // BUSCA EL PRIMER A NEGRO (DISPONIBLE)
 			{
@@ -384,7 +381,7 @@ bool CGraph::JJO(/*CVertexAdjacencyList* vertexArray_G1[], CVertexAdjacencyList*
 		}
 		else
 		{
-			//cout << "FUNCION NO ENCONTRADA, GRAFOS NO SON ISOMORFOS" << endl;
+			
 			return false;
 		}
 
@@ -430,7 +427,7 @@ bool CGraph::Assigned(int vertex, int table)
 			return true;
 		break;
 	default:
-		//return false;
+		
 		break;
 	}
 	return false;
@@ -548,7 +545,7 @@ bool CGraph::CheckIsomorphismTable(CGraph* G1, CGraph* G2)
 	// MAKE THE SWAP!!!!!!!!!!
 	if (executeSwap == true)
 	{
-		//swap(IsomorphismTable[G1_Index_NoBijectionVertex], IsomorphismTable[G2_Index_NoBijectionVertex]);
+		
 		return false;
 	}
 	else
@@ -564,13 +561,7 @@ bool CGraph::CheckIsomorphismTable(CGraph* G1, CGraph* G2)
 
 	delete G1_vertex;
 	delete G2_vertex;
-	//std::cout << "FUNCION ISOMORFISMO CON SWAP" << std::endl;
-	//std::cout << "G1" << " -> " << "G2" << std::endl;
-
-	//for (int i = 0; i < 8; i++)
-	//{
-	//	std::cout << i << " -> " << IsomorphismTable[i] << std::endl;
-	//}
+	
 	delete miniCorrectIsomorphismTable;
 }
 
@@ -589,7 +580,7 @@ bool CGraph::CheckIsomorphismTableAdjacentVertices(CVertexAdjacencyList * A, CVe
 		//CHECK IF THE VERTEX THE FUNCTION RETURNS IS IN G2_VERTEX ADJACENTS
 		if (B->IsAnElement(IsomorphismTable[A->ElementAtIndex(j)]) == false) // Adjacent of G1_vertex has a corresponding adjacent to G2_vertex?
 		{
-			//A_NoBijectionVertex = A->ElementAtIndex(j); // It's the element that doesn't have a correct bijection.
+			
 			EVERYTHINGOK = false;
 		}
 	}
