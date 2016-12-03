@@ -14,7 +14,7 @@ CReadInput::~CReadInput()
 
 int CReadInput::FileSize(string Entrada)
 {
-	
+
 	file.open(Entrada);
 	string line = "";
 	int line_counter = 0;
@@ -26,7 +26,7 @@ int CReadInput::FileSize(string Entrada)
 			line_counter++;
 		else
 			break;
-			
+
 	}
 	file.close();
 

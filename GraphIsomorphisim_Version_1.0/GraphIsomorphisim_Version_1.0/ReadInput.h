@@ -15,6 +15,5 @@ public:
 	static void ReadInput(string Entrada, CGraph* Graph);
 	static int GetVertexQuantity(string Entrada);
 
-
 };
 

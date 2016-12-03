@@ -1,8 +1,7 @@
-﻿  VertexAdjacencyList.cpp
-  ReadInput.cpp
-  Main.cpp
-  Graph.cpp
+﻿  Main.cpp
   Generando código...
-c:\users\oscar\desktop\proyecto discreta\graph-isomorphism-project\graphisomorphisim_version_1.0\graphisomorphisim_version_1.0\graph.cpp(121): warning C4715: 'CGraph::Isomorphism': no todas las rutas de acceso de control devuelven un valor
+  Compilando...
+  ReadInput.cpp
+  Generando código...
   GraphIsomorphisim_Version_1.0.vcxproj -> C:\Users\Oscar\Desktop\Proyecto Discreta\Graph-Isomorphism-Project\GraphIsomorphisim_Version_1.0\Debug\GraphIsomorphisim_Version_1.0.exe
   GraphIsomorphisim_Version_1.0.vcxproj -> C:\Users\Oscar\Desktop\Proyecto Discreta\Graph-Isomorphism-Project\GraphIsomorphisim_Version_1.0\Debug\GraphIsomorphisim_Version_1.0.pdb (Partial PDB)
