@@ -6,7 +6,7 @@ To understand what was originally going on here, please check out the detailed [
 
 # 2025 Update - English
 
-I removed all the Visual Studio project files from the `GraphIsomorphism_Version_1.0` folder. (Actually, they are still at `Legacy_Docs/Entrega/Documentacion/Codigo-Fuente/`, but that's irrelevant.)
+I removed all the Visual Studio project files from the `GraphIsomorphism_Version_1.0` folder. (Actually, they are still at `Legacy_Docs/Entrega/Documentacion/Codigo_Fuente/`, but that's irrelevant.)
 
 Instead, I now added a `CMakeLists.txt` to the root of the repo. If you follow the instructions below, you'll be able to build the program and run it seamlessly.
 
