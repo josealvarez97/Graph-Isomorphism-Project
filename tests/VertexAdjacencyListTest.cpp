@@ -103,7 +103,7 @@ TEST(CVertexAdjacencyListTest, ElementAtIndexOutOfRange) {
 }
 
 
-// Check ElementAtIndex with out of range index (optional if you throw or return -1)
+// Check ElementAtIndex with out of range index
 TEST(CVertexAdjacencyListTest2, ElementAtIndexOutOfRange2) {
     CVertexAdjacencyList list;
     list.Add(7);
@@ -116,7 +116,7 @@ TEST(CVertexAdjacencyListTest2, ElementAtIndexOutOfRange2) {
     // EXPECT_THROW(list.ElementAtIndex(10), std::out_of_range);
 }
 
-// Adding duplicate values (depends on your Add() design)
+// Adding duplicate values (depends on Add() design)
 TEST(CVertexAdjacencyListTest, AddDuplicateValue) {
     CVertexAdjacencyList list;
     list.Add(42);
