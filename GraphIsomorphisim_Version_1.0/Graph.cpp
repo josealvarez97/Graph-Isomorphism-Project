@@ -118,6 +118,7 @@ bool CGraph::Isomorphism(CGraph* G1, CGraph* G2)
 		return false;
 	}
 
+	return true;
 }
 
 bool CGraph::CompareVerticesQuantity(CGraph* G1, CGraph* G2)

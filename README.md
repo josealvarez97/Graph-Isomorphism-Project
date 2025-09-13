@@ -96,6 +96,12 @@ G1 -> G2
 ctest --output-on-failure
 ```
 
+verbose
+
+```bash
+ctest --rerun-failed --output-on-failure
+```
+
 or directly:
 
 ```bash
