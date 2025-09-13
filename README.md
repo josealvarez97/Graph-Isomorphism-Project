@@ -108,3 +108,39 @@ You probably want to convince the editor that the gtest package is there. At the
 cmake -S . -B build -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
 ln -s build/compile_commands.json .
 ```
+
+If you run the tests, you should see something like this:
+
+```bash
+Test project /Users/josealvarez/Documents/GitHub/Graph-Isomorphism-Project/build
+      Start  1: HelloWorldTest.BasicAssertions
+ 1/13 Test  #1: HelloWorldTest.BasicAssertions ....................................   Passed    0.00 sec
+      Start  2: CVertexAdjacencyListTest.DefaultConstructorInitializesEmptyList
+ 2/13 Test  #2: CVertexAdjacencyListTest.DefaultConstructorInitializesEmptyList ...   Passed    0.00 sec
+      Start  3: CVertexAdjacencyListTest.InitiallyEmpty
+ 3/13 Test  #3: CVertexAdjacencyListTest.InitiallyEmpty ...........................   Passed    0.00 sec
+      Start  4: CVertexAdjacencyListTest.CanSetAndGetVertexValue
+ 4/13 Test  #4: CVertexAdjacencyListTest.CanSetAndGetVertexValue ..................   Passed    0.00 sec
+      Start  5: CVertexAdjacencyListTest.AddIncreasesSize
+ 5/13 Test  #5: CVertexAdjacencyListTest.AddIncreasesSize .........................   Passed    0.00 sec
+      Start  6: CVertexAdjacencyListTest.AddSingleElement
+ 6/13 Test  #6: CVertexAdjacencyListTest.AddSingleElement .........................   Passed    0.00 sec
+      Start  7: CVertexAdjacencyListTest.IsAnElementWorksCorrectly
+ 7/13 Test  #7: CVertexAdjacencyListTest.IsAnElementWorksCorrectly ................   Passed    0.00 sec
+      Start  8: CVertexAdjacencyListTest.AddMultipleElements
+ 8/13 Test  #8: CVertexAdjacencyListTest.AddMultipleElements ......................   Passed    0.00 sec
+      Start  9: CVertexAdjacencyListTest.ElementAtIndexReturnsCorrectValue
+ 9/13 Test  #9: CVertexAdjacencyListTest.ElementAtIndexReturnsCorrectValue ........   Passed    0.00 sec
+      Start 10: CVertexAdjacencyListTest.ElementAtIndexOutOfRange
+10/13 Test #10: CVertexAdjacencyListTest.ElementAtIndexOutOfRange .................   Passed    0.00 sec
+      Start 11: CVertexAdjacencyListTest.AddDuplicateValue
+11/13 Test #11: CVertexAdjacencyListTest.AddDuplicateValue ........................   Passed    0.00 sec
+      Start 12: CVertexAdjacencyListTest.SetAndGetVertexValue
+12/13 Test #12: CVertexAdjacencyListTest.SetAndGetVertexValue .....................   Passed    0.00 sec
+      Start 13: CVertexAdjacencyListTest2.ElementAtIndexOutOfRange2
+13/13 Test #13: CVertexAdjacencyListTest2.ElementAtIndexOutOfRange2 ...............   Passed    0.00 sec
+
+100% tests passed, 0 tests failed out of 13
+
+Total Test time (real) =   0.05 sec
+```
