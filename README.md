@@ -123,34 +123,74 @@ If you run the tests, you should see something like this:
 
 ```bash
 Test project /Users/josealvarez/Documents/GitHub/Graph-Isomorphism-Project/build
-      Start  1: HelloWorldTest.BasicAssertions
- 1/13 Test  #1: HelloWorldTest.BasicAssertions ....................................   Passed    0.00 sec
-      Start  2: CVertexAdjacencyListTest.DefaultConstructorInitializesEmptyList
- 2/13 Test  #2: CVertexAdjacencyListTest.DefaultConstructorInitializesEmptyList ...   Passed    0.00 sec
-      Start  3: CVertexAdjacencyListTest.InitiallyEmpty
- 3/13 Test  #3: CVertexAdjacencyListTest.InitiallyEmpty ...........................   Passed    0.00 sec
-      Start  4: CVertexAdjacencyListTest.CanSetAndGetVertexValue
- 4/13 Test  #4: CVertexAdjacencyListTest.CanSetAndGetVertexValue ..................   Passed    0.00 sec
-      Start  5: CVertexAdjacencyListTest.AddIncreasesSize
- 5/13 Test  #5: CVertexAdjacencyListTest.AddIncreasesSize .........................   Passed    0.00 sec
-      Start  6: CVertexAdjacencyListTest.AddSingleElement
- 6/13 Test  #6: CVertexAdjacencyListTest.AddSingleElement .........................   Passed    0.00 sec
-      Start  7: CVertexAdjacencyListTest.IsAnElementWorksCorrectly
- 7/13 Test  #7: CVertexAdjacencyListTest.IsAnElementWorksCorrectly ................   Passed    0.00 sec
-      Start  8: CVertexAdjacencyListTest.AddMultipleElements
- 8/13 Test  #8: CVertexAdjacencyListTest.AddMultipleElements ......................   Passed    0.00 sec
-      Start  9: CVertexAdjacencyListTest.ElementAtIndexReturnsCorrectValue
- 9/13 Test  #9: CVertexAdjacencyListTest.ElementAtIndexReturnsCorrectValue ........   Passed    0.00 sec
-      Start 10: CVertexAdjacencyListTest.ElementAtIndexOutOfRange
-10/13 Test #10: CVertexAdjacencyListTest.ElementAtIndexOutOfRange .................   Passed    0.00 sec
-      Start 11: CVertexAdjacencyListTest.AddDuplicateValue
-11/13 Test #11: CVertexAdjacencyListTest.AddDuplicateValue ........................   Passed    0.00 sec
-      Start 12: CVertexAdjacencyListTest.SetAndGetVertexValue
-12/13 Test #12: CVertexAdjacencyListTest.SetAndGetVertexValue .....................   Passed    0.00 sec
-      Start 13: CVertexAdjacencyListTest2.ElementAtIndexOutOfRange2
-13/13 Test #13: CVertexAdjacencyListTest2.ElementAtIndexOutOfRange2 ...............   Passed    0.00 sec
+      Start  1: GraphCasesTest.SampleGraphsAreIsomorphic
+ 1/33 Test  #1: GraphCasesTest.SampleGraphsAreIsomorphic ..........................   Passed    0.01 sec
+      Start  2: GraphCasesTest.AnotherPairIsomorphic
+ 2/33 Test  #2: GraphCasesTest.AnotherPairIsomorphic ..............................   Passed    0.00 sec
+      Start  3: GraphIsomorphismTest.GraphIsomorphicToItselfDisconnected
+ 3/33 Test  #3: GraphIsomorphismTest.GraphIsomorphicToItselfDisconnected ..........   Passed    0.00 sec
+      Start  4: GraphIsomorphismTest.GraphIsomorphicToItself
+ 4/33 Test  #4: GraphIsomorphismTest.GraphIsomorphicToItself ......................   Passed    0.00 sec
+      Start  5: GraphIsomorphismTest.DifferentVertexCountNotIsomorphic
+ 5/33 Test  #5: GraphIsomorphismTest.DifferentVertexCountNotIsomorphic ............   Passed    0.00 sec
+      Start  6: GraphIsomorphismTest.DifferentEdgeCountNotIsomorphic
+ 6/33 Test  #6: GraphIsomorphismTest.DifferentEdgeCountNotIsomorphic ..............   Passed    0.00 sec
+      Start  7: GraphIsomorphismTest.DifferentDegreeSequenceNotIsomorphic
+ 7/33 Test  #7: GraphIsomorphismTest.DifferentDegreeSequenceNotIsomorphic .........   Passed    0.01 sec
+      Start  8: GraphIsomorphismTest.NonIsomorphicSameDegreeSequence
+ 8/33 Test  #8: GraphIsomorphismTest.NonIsomorphicSameDegreeSequence ..............   Passed    0.01 sec
+      Start  9: GraphIsomorphismTest.IsomorphicGraphsDifferentLabeling
+ 9/33 Test  #9: GraphIsomorphismTest.IsomorphicGraphsDifferentLabeling ............   Passed    0.00 sec
+      Start 10: CGraphTest.ConstructorInitializesVertices
+10/33 Test #10: CGraphTest.ConstructorInitializesVertices .........................   Passed    0.01 sec
+      Start 11: CGraphTest.AddEdgeUndirectedAdjacency
+11/33 Test #11: CGraphTest.AddEdgeUndirectedAdjacency .............................   Passed    0.00 sec
+      Start 12: CGraphTest.AddEdgeDuplicateAllowsDuplicates
+12/33 Test #12: CGraphTest.AddEdgeDuplicateAllowsDuplicates .......................   Passed    0.00 sec
+      Start 13: CGraphTest.RemoveEdgeNoEffect
+13/33 Test #13: CGraphTest.RemoveEdgeNoEffect .....................................   Passed    0.00 sec
+      Start 14: CGraphTest.AdjacentAndDegreeWithNoEdges
+14/33 Test #14: CGraphTest.AdjacentAndDegreeWithNoEdges ...........................   Passed    0.00 sec
+      Start 15: CGraphTest.StaticCompareVerticesQuantity
+15/33 Test #15: CGraphTest.StaticCompareVerticesQuantity ..........................   Passed    0.00 sec
+      Start 16: CGraphTest.StaticEdgesCountAndCompare
+16/33 Test #16: CGraphTest.StaticEdgesCountAndCompare .............................   Passed    0.00 sec
+      Start 17: CGraphTest.StaticDegreeTableFunctions
+17/33 Test #17: CGraphTest.StaticDegreeTableFunctions .............................   Passed    0.00 sec
+      Start 18: ReadInputTest.FileSizeCountsLines
+18/33 Test #18: ReadInputTest.FileSizeCountsLines .................................   Passed    0.00 sec
+      Start 19: ReadInputTest.GetVertexQuantityParsesFirstLine
+19/33 Test #19: ReadInputTest.GetVertexQuantityParsesFirstLine ....................   Passed    0.00 sec
+      Start 20: ReadInputTest.ReadInputBuildsGraphCorrectly
+20/33 Test #20: ReadInputTest.ReadInputBuildsGraphCorrectly .......................   Passed    0.00 sec
+      Start 21: HelloWorldTest.BasicAssertions
+21/33 Test #21: HelloWorldTest.BasicAssertions ....................................   Passed    0.00 sec
+      Start 22: CVertexAdjacencyListTest.DefaultConstructorInitializesEmptyList
+22/33 Test #22: CVertexAdjacencyListTest.DefaultConstructorInitializesEmptyList ...   Passed    0.00 sec
+      Start 23: CVertexAdjacencyListTest.InitiallyEmpty
+23/33 Test #23: CVertexAdjacencyListTest.InitiallyEmpty ...........................   Passed    0.00 sec
+      Start 24: CVertexAdjacencyListTest.CanSetAndGetVertexValue
+24/33 Test #24: CVertexAdjacencyListTest.CanSetAndGetVertexValue ..................   Passed    0.00 sec
+      Start 25: CVertexAdjacencyListTest.AddIncreasesSize
+25/33 Test #25: CVertexAdjacencyListTest.AddIncreasesSize .........................   Passed    0.00 sec
+      Start 26: CVertexAdjacencyListTest.AddSingleElement
+26/33 Test #26: CVertexAdjacencyListTest.AddSingleElement .........................   Passed    0.00 sec
+      Start 27: CVertexAdjacencyListTest.IsAnElementWorksCorrectly
+27/33 Test #27: CVertexAdjacencyListTest.IsAnElementWorksCorrectly ................   Passed    0.00 sec
+      Start 28: CVertexAdjacencyListTest.AddMultipleElements
+28/33 Test #28: CVertexAdjacencyListTest.AddMultipleElements ......................   Passed    0.00 sec
+      Start 29: CVertexAdjacencyListTest.ElementAtIndexReturnsCorrectValue
+29/33 Test #29: CVertexAdjacencyListTest.ElementAtIndexReturnsCorrectValue ........   Passed    0.00 sec
+      Start 30: CVertexAdjacencyListTest.ElementAtIndexOutOfRange
+30/33 Test #30: CVertexAdjacencyListTest.ElementAtIndexOutOfRange .................   Passed    0.00 sec
+      Start 31: CVertexAdjacencyListTest.AddDuplicateValue
+31/33 Test #31: CVertexAdjacencyListTest.AddDuplicateValue ........................   Passed    0.00 sec
+      Start 32: CVertexAdjacencyListTest.SetAndGetVertexValue
+32/33 Test #32: CVertexAdjacencyListTest.SetAndGetVertexValue .....................   Passed    0.00 sec
+      Start 33: CVertexAdjacencyListTest2.ElementAtIndexOutOfRange2
+33/33 Test #33: CVertexAdjacencyListTest2.ElementAtIndexOutOfRange2 ...............   Passed    0.00 sec
 
-100% tests passed, 0 tests failed out of 13
+100% tests passed, 0 tests failed out of 33
 
-Total Test time (real) =   0.05 sec
+Total Test time (real) =   0.15 sec
 ```
