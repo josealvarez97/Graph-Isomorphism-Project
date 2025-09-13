@@ -1,6 +1,6 @@
 # Graph-Isomorphism-Project
 
-# Legacy docs (Spanish)
+# 2016 Legacy Docs (Spanish)
 
 To understand what was originally going on here, please check out the detailed [legacy documentation](https://github.com/josealvarez97/Graph-Isomorphism-Project/tree/master/Documentation) - which is in Spanish, though. But it's very good legacy documentation (at least check out the diagrams and pictures of the [Technical Manual](../master/Documentation/Entrega/Documentacion/Manuales/MANUAL_TECNICO_PROYECTO.pdf) :wink:).
 
