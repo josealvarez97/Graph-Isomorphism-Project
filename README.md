@@ -104,6 +104,10 @@ or directly:
 
 You probably want to convince the editor that the gtest package is there. At the root of the repo, run the following command (and don't forget to reload the window afterwards if you're using VS Code):
 
+> **Note:** We’re creating a symlink at the repo root so editors like VS Code can find `compile_commands.json` for IntelliSense.  
+> The real file lives in `build/` and is ignored by Git, but the symlink at the root points to it.  
+> This way you get autocompletion without committing a large auto-generated file with details specific to your system.
+
 ```bash
 cmake -S . -B build -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
 ln -s build/compile_commands.json .
