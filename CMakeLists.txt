@@ -28,3 +28,7 @@ FetchContent_MakeAvailable(googletest)
 
 enable_testing()
 add_subdirectory(tests)
+
+# Define the path to Cases directory for integration tests
+target_compile_definitions(graph_iso_tests PRIVATE 
+    TEST_GRAPH_CASES_DIR=\"${CMAKE_SOURCE_DIR}/GraphIsomorphisim_Version_1.0/Cases\")
