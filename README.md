@@ -1,4 +1,4 @@
-# Graph-Isomorphism-Project
+# Graph Isomorphism Project
 
 # 2016 Legacy Docs (Spanish)
 
