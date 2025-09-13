@@ -102,7 +102,7 @@ or directly:
 ./graph_iso_tests
 ```
 
-You probably want to convince the editor that the gtest package is there. At the root of the repo, run (and don't forget to reload the window if you're using VS Code):
+You probably want to convince the editor that the gtest package is there. At the root of the repo, run the following command (and don't forget to reload the window if you're using VS Code):
 
 ```bash
 cmake -S . -B build -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
