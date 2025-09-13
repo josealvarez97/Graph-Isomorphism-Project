@@ -38,7 +38,7 @@ cmake --build .
 ### Run the program
 
 ```bash
-./GraphIsomorphisim_Version_1.0
+./graph_iso
 ```
 
 You should experience something like this:
@@ -88,4 +88,23 @@ G1 -> G2
 
 
   DO YOU WANT TO CONTINUE INSERTING OTHER GRAPHS? YES: Any key  NO: press 1
+```
+
+### Run the test suite
+
+```bash
+ctest --output-on-failure
+```
+
+or directly:
+
+```bash
+./graph_iso_tests
+```
+
+You probably want to convince the editor that the gtest package is there. At the root of the repo, run (and don't forget to reload the window if you're using VS Code):
+
+```bash
+cmake -S . -B build -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
+ln -s build/compile_commands.json .
 ```

@@ -1,14 +1,30 @@
-cmake_minimum_required(VERSION 3.10)
-project(GraphIsomorphisim_Version_1.0 LANGUAGES CXX)
+cmake_minimum_required(VERSION 3.14)
+project(GraphIso LANGUAGES CXX)
 
-# Use C++11 standard (or higher) for compilation
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-# Define the executable target and list all source files
-add_executable(GraphIsomorphisim_Version_1.0 
-    GraphIsomorphisim_Version_1.0/Main.cpp 
-    GraphIsomorphisim_Version_1.0/Graph.cpp 
-    GraphIsomorphisim_Version_1.0/ReadInput.cpp 
-    GraphIsomorphisim_Version_1.0/VertexAdjacencyList.cpp
+# Separate main.cpp from the rest
+file(GLOB PROJECT_SOURCES GraphIsomorphisim_Version_1.0/*.cpp)
+list(REMOVE_ITEM PROJECT_SOURCES
+     ${CMAKE_SOURCE_DIR}/GraphIsomorphisim_Version_1.0/main.cpp)
+
+# Library of core code
+add_library(graph_iso_lib ${PROJECT_SOURCES})
+target_include_directories(graph_iso_lib PUBLIC GraphIsomorphisim_Version_1.0)
+
+# Main executable
+add_executable(graph_iso GraphIsomorphisim_Version_1.0/main.cpp)
+target_link_libraries(graph_iso PRIVATE graph_iso_lib)
+
+# GoogleTest via FetchContent
+include(FetchContent)
+FetchContent_Declare(
+  googletest
+  URL https://github.com/google/googletest/archive/refs/heads/main.zip
 )
+set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+FetchContent_MakeAvailable(googletest)
+
+enable_testing()
+add_subdirectory(tests)
